@@ -4,5 +4,5 @@ import { Typography } from 'antd';
 const { Title } = Typography;
 
 export default function Page() {
-  return <Title>티켓 설정</Title>;
+  return <Title>미배정 조회</Title>;
 }
