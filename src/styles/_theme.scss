@@ -1,0 +1,29 @@
+.quantum {
+  .qt-layout {
+    // background-color: red;
+  }
+
+  .qt-layout-header {
+    &.light {
+      background-color: #fff;
+    }
+  }
+
+  .qt-layout-content {
+    min-height: 100vh;
+  }
+}
+
+.#{$prefix}-light {
+  //   background-color: red;
+  .#{$prefix}-btn-primary {
+    // background-color: yellow;
+  }
+}
+
+.#{$prefix}-dark {
+  //   background-color: red;
+  .#{$prefix}-btn-primary {
+    // background-color: yellow;
+  }
+}
