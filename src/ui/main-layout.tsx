@@ -1,17 +1,22 @@
 'use client';
+
+import Navigation from '@/ui/navigation';
+import ThemeSwitch from '@/ui/theme-switch';
+
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { theme, Button, Layout } from 'antd';
 import { SiderTheme } from 'antd/es/layout/Sider';
 import { CookieValueTypes, getCookie } from 'cookies-next';
-
-import Navigation from '@/ui/navigation';
-import ThemeSwitch from '@/ui/theme-switch';
+import { menuInfo } from '@/lib/constants';
+import Link from 'next/link';
 
 const { Header, Content, Sider } = Layout;
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname();
   const themeMode: CookieValueTypes = getCookie('theme-mode');
   const { token } = theme.useToken();
   const [collapsed, setCollapsed] = useState(false);
@@ -19,7 +24,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setCurrentTheme(themeMode === 'dark' ? 'dark' : 'light');
-  }, [themeMode]);
+  }, [themeMode, pathname]);
 
   return (
     <Layout hasSider>
@@ -27,18 +32,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-        }}
         theme={currentTheme}
       >
         <div style={{ height: token.Layout?.headerHeight }}>
-          <Image src="/next.svg" width={100} height={30} alt="test" />
+          <Link href="/">logo</Link>
+          {/* <Image src="/next.svg" width={100} height={30} alt="test" /> */}
         </div>
         <Navigation />
       </Sider>
@@ -55,7 +53,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           />
           <ThemeSwitch />
         </Header>
-        <Content style={{ padding: '1.5rem' }}>{children}</Content>
+        <Content className="contents">
+          <div className="page-title">{menuInfo[pathname].pageTitle}</div>
+          {children}
+        </Content>
       </Layout>
     </Layout>
   );

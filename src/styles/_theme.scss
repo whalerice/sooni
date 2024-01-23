@@ -1,6 +1,15 @@
 .quantum {
   .qt-layout {
     // background-color: red;
+    // .qt-layout-sider {
+    //   background-color: blue;
+    //   overflow: 'auto';
+    //   height: '100vh';
+    //   position: 'fixed';
+    //   left: 0;
+    //   top: 0;
+    //   bottom: 0;
+    // }
   }
 
   .qt-layout-header {
@@ -8,9 +17,17 @@
       background-color: #fff;
     }
   }
+  .gnb {
+    background-color: red;
+  }
 
   .qt-layout-content {
     min-height: 100vh;
+  }
+  .contents {
+    padding: 1.5rem;
+    .page-title {
+    }
   }
 }
 

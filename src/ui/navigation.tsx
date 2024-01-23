@@ -1,158 +1,80 @@
-import {
-  DashboardOutlined,
-  ProfileOutlined,
-  SettingOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  FundViewOutlined,
-  SearchOutlined,
-  UserOutlined,
-  UserAddOutlined,
-  ThunderboltOutlined,
-  ShopOutlined,
-  SolutionOutlined,
-  StarOutlined,
-  GiftOutlined,
-  RobotOutlined,
-  FieldTimeOutlined,
-  CommentOutlined,
-} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Menu } from 'antd';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import Link from 'next/link';
+
+import { Menu } from 'antd';
+import type { MenuProps } from 'antd';
+import { usePathname } from 'next/navigation';
+import { menuInfo } from '@/lib/constants';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
-  label: React.ReactNode,
   key: React.Key,
-  icon?: React.ReactNode,
   children?: MenuItem[],
-  type?: 'group',
+  type?: 'group' | 'sub',
 ): MenuItem {
+  let name = (key: any) => {
+    if (type) {
+      return menuInfo[key].nav;
+    }
+    return <Link href={key}>{menuInfo[key].nav}</Link>;
+  };
+
+  let getIcon = (key: any) => {
+    const Icon = menuInfo[key].icon;
+    return menuInfo[key].icon ? <Icon /> : null;
+  };
+  const label = name(key);
+  const icon = getIcon(key);
   return {
+    label,
     key,
     icon,
     children,
-    label,
     type,
   } as MenuItem;
 }
 
 const items: MenuProps['items'] = [
   getItem(
-    '대시보드',
-    '',
-    null,
+    'dashboard',
+    [getItem('/'), getItem('/monitor'), getItem('/report')],
+    'group',
+  ),
+  { type: 'divider' },
+  getItem('tickets', [getItem('/ticket'), getItem('/ticket/setting')], 'group'),
+  { type: 'divider' },
+  getItem(
+    'management',
     [
-      getItem(<Link href="/">실시간</Link>, '/', <DashboardOutlined />),
-      getItem(
-        <Link href="/monitor">모니터링</Link>,
-        '/monitor',
-        <FundViewOutlined />,
-      ),
-      getItem(
-        <Link href="/report">리포트</Link>,
-        '/report',
-        <PieChartOutlined />,
-      ),
+      getItem('/team'),
+      getItem('/member'),
+      getItem('/manager'),
+      getItem('/counselor'),
+      getItem('/message'),
+      getItem('/answer'),
+      getItem('/branch'),
+      getItem('/roadshow'),
     ],
     'group',
   ),
   { type: 'divider' },
   getItem(
-    '티켓',
-    '',
-    null,
+    'setting',
     [
       getItem(
-        <Link href="/ticket">티켓 조회</Link>,
-        '/ticket',
-        <SearchOutlined />,
+        'general',
+        [
+          getItem('/general'),
+          getItem('/general/auto'),
+          getItem('/general/rank'),
+          getItem('/general/abusive'),
+        ],
+        'sub',
       ),
-    ],
-    'group',
-  ),
-  { type: 'divider' },
-  getItem(
-    '관리',
-    '',
-    null,
-    [
-      getItem(<Link href="/team">팀</Link>, '/team', <TeamOutlined />),
-      getItem(
-        <Link href="/member">팀원 관리</Link>,
-        '/member',
-        <UserAddOutlined />,
-      ),
-      getItem(
-        <Link href="/admin">관리자</Link>,
-        '/admin',
-        <SolutionOutlined />,
-      ),
-      getItem(<Link href="/agent">상담사</Link>, '/agent', <UserOutlined />),
-      getItem(
-        <Link href="/message">챗봇 메세지</Link>,
-        '/message',
-        <CommentOutlined />,
-      ),
-      getItem(
-        <Link href="/quick">빠른답변</Link>,
-        '/quick',
-        <ThunderboltOutlined />,
-      ),
-      getItem(
-        <Link href="/branch">점포공감</Link>,
-        '/branch',
-        <ShopOutlined />,
-      ),
-      getItem(
-        <Link href="/roadshow">로드쇼</Link>,
-        '/roadshow',
-        <StarOutlined />,
-      ),
-    ],
-    'group',
-  ),
-  { type: 'divider' },
-  getItem(
-    '설정',
-    '',
-    null,
-    [
-      getItem('일반설정', 'general', <SettingOutlined />, [
-        getItem(<Link href="/general">일반</Link>, '/general'),
-        getItem(<Link href="/general/auto">자동화</Link>, '/general/auto'),
-        getItem(<Link href="/general/rank">직급</Link>, '/general/rank'),
-        getItem(
-          <Link href="/general/abusive">욕설필터</Link>,
-          '/general/abusive',
-        ),
-      ]),
-      getItem(
-        <Link href="/operation">운영 시간 설정</Link>,
-        '/operation',
-        <FieldTimeOutlined />,
-      ),
-      getItem(
-        <Link href="/chatbot">챗봇 설정</Link>,
-        '/chatbot',
-        <RobotOutlined />,
-      ),
-      getItem('이벤트 설정', 'event', <GiftOutlined />, [
-        getItem(<Link href="/event/time">타임 이벤트</Link>, '/event/time'),
-        getItem(
-          <Link href="/event/instantly">즉시 이벤트</Link>,
-          '/event/instantly',
-        ),
-      ]),
-      getItem(
-        <Link href="/ticket/setting">티켓 설정</Link>,
-        '/ticket/setting',
-        <ProfileOutlined />,
-      ),
+      getItem('/operation'),
+      getItem('/chatbot'),
+      getItem('event', [getItem('/event/time'), getItem('/event/instantly')]),
     ],
     'group',
   ),
@@ -184,7 +106,6 @@ const Navigation = () => {
   useEffect(() => {
     loop(items);
   }, [pathname]);
-
   return (
     <Menu
       defaultSelectedKeys={defaultSelectedKeys}
