@@ -3,7 +3,7 @@ import { Card, Col, Row } from 'antd';
 import Meta from 'antd/es/card/Meta';
 
 export async function fetchData(page?: number) {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   try {
     const res = await apis.movie.popular({ page: page ? page : 1 });

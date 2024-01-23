@@ -1,4 +1,22 @@
-import { MailOutlined, PieChartOutlined } from '@ant-design/icons';
+import {
+  DashboardOutlined,
+  ProfileOutlined,
+  SettingOutlined,
+  PieChartOutlined,
+  TeamOutlined,
+  FundViewOutlined,
+  SearchOutlined,
+  UserOutlined,
+  UserAddOutlined,
+  ThunderboltOutlined,
+  ShopOutlined,
+  SolutionOutlined,
+  StarOutlined,
+  GiftOutlined,
+  RobotOutlined,
+  FieldTimeOutlined,
+  CommentOutlined,
+} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import Link from 'next/link';
@@ -23,88 +41,121 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  getItem(<Link href="/">대시보드</Link>, '/', <PieChartOutlined />),
+const items: MenuProps['items'] = [
+  getItem(
+    '대시보드',
+    '',
+    null,
+    [
+      getItem(<Link href="/">실시간</Link>, '/', <DashboardOutlined />),
+      getItem(
+        <Link href="/monitor">모니터링</Link>,
+        '/monitor',
+        <FundViewOutlined />,
+      ),
+      getItem(
+        <Link href="/report">리포트</Link>,
+        '/report',
+        <PieChartOutlined />,
+      ),
+    ],
+    'group',
+  ),
   { type: 'divider' },
-  getItem('티켓', 'ticket', <MailOutlined />, [
-    getItem(<Link href="/ticket/list">티켓 조회</Link>, '/ticket/list'),
-    getItem(<Link href="/ticket/settings">티켓 설정</Link>, '/ticket/settings'),
-    getItem(
-      <Link href="/ticket/situation">티켓 현황</Link>,
-      '/ticket/situation',
-    ),
-    getItem(<Link href="/ticket/field">티켓 필드</Link>, '/ticket/field'),
-  ]),
-  getItem('배정', 'assign', <MailOutlined />, [
-    getItem(
-      <Link href="/assign/unassigned">미배정 조회</Link>,
-      '/assign/unassigned',
-    ),
-    getItem(<Link href="/assign/settings">배정 설정</Link>, '/assign/settings'),
-    getItem(
-      <Link href="/assign/situation">배정 현황</Link>,
-      '/assign/situation',
-    ),
-  ]),
-  getItem('상담', 'counsel', <MailOutlined />, [
-    getItem(<Link href="/counsel/closed">완료된 티켓</Link>, '/counsel/closed'),
-    getItem(
-      <Link href="/counsel/situation">상담 현황</Link>,
-      '/counsel/situation',
-    ),
-  ]),
-  getItem('사용자', 'user', <MailOutlined />, [
-    getItem(<Link href="/user/list">사용자 조회</Link>, '/user/list'),
-    getItem(
-      <Link href="/user/assessment">사용자 평가</Link>,
-      '/user/assessment',
-    ),
-  ]),
-  getItem('그룹', 'group', <MailOutlined />, [
-    getItem(<Link href="/group/list">그룹 조회</Link>, '/group/list'),
-  ]),
-  getItem('조직', 'organize', <MailOutlined />, [
-    getItem(<Link href="/organize/list">조직 조회</Link>, '/organize/list'),
-  ]),
-  getItem('지점', 'branch', <MailOutlined />, [
-    getItem(<Link href="/branch/list">지점 조회</Link>, '/branch/list'),
-  ]),
-  getItem('시스템 설정', 'system', <MailOutlined />, [
-    getItem(<Link href="/system/code">코드</Link>, '/system/code'),
-  ]),
-  getItem(<Link href="/holiday">휴일</Link>, '/holiday', <MailOutlined />),
-  getItem(<Link href="/notice">휴일</Link>, '/notice', <MailOutlined />),
+  getItem(
+    '티켓',
+    '',
+    null,
+    [
+      getItem(
+        <Link href="/ticket">티켓 조회</Link>,
+        '/ticket',
+        <SearchOutlined />,
+      ),
+    ],
+    'group',
+  ),
   { type: 'divider' },
-  getItem('챗로그 자동화', 'chatlog', <MailOutlined />, [
-    getItem(
-      <Link href="/chatlog/annotation">어노테이션</Link>,
-      '/chatlog/annotation',
-    ),
-    getItem(
-      <Link href="/chatlog/classification">재분류</Link>,
-      '/chatlog/classification',
-    ),
-    getItem(<Link href="/chatlog/standard">표준셋</Link>, '/chatlog/standard'),
-    getItem(<Link href="/chatlog/faqlog">FAQ 로그</Link>, '/chatlog/faqlog'),
-    getItem(
-      <Link href="/chatlog/calculate">정산 관리</Link>,
-      '/chatlog/calculate',
-    ),
-    getItem(
-      <Link href="/chatlog/statistics">재분류 현황</Link>,
-      '/chatlog/statistics',
-    ),
-  ]),
-  getItem('메세지', 'message', <MailOutlined />, [
-    getItem(<Link href="/message/ivr">IVR 멘트</Link>, '/message/ivr'),
-    getItem(<Link href="/message/trigger">트리거</Link>, '/message/trigger'),
-    getItem(
-      <Link href="/message/system-message">시스템 메세지</Link>,
-      '/message/system-message',
-    ),
-    getItem(<Link href="/message/filter">욕설 필터</Link>, '/message/filter'),
-  ]),
-
+  getItem(
+    '관리',
+    '',
+    null,
+    [
+      getItem(<Link href="/team">팀</Link>, '/team', <TeamOutlined />),
+      getItem(
+        <Link href="/member">팀원 관리</Link>,
+        '/member',
+        <UserAddOutlined />,
+      ),
+      getItem(
+        <Link href="/admin">관리자</Link>,
+        '/admin',
+        <SolutionOutlined />,
+      ),
+      getItem(<Link href="/agent">상담사</Link>, '/agent', <UserOutlined />),
+      getItem(
+        <Link href="/message">챗봇 메세지</Link>,
+        '/message',
+        <CommentOutlined />,
+      ),
+      getItem(
+        <Link href="/quick">빠른답변</Link>,
+        '/quick',
+        <ThunderboltOutlined />,
+      ),
+      getItem(
+        <Link href="/branch">점포공감</Link>,
+        '/branch',
+        <ShopOutlined />,
+      ),
+      getItem(
+        <Link href="/roadshow">로드쇼</Link>,
+        '/roadshow',
+        <StarOutlined />,
+      ),
+    ],
+    'group',
+  ),
+  { type: 'divider' },
+  getItem(
+    '설정',
+    '',
+    null,
+    [
+      getItem('일반설정', 'general', <SettingOutlined />, [
+        getItem(<Link href="/general">일반</Link>, '/general'),
+        getItem(<Link href="/general/auto">자동화</Link>, '/general/auto'),
+        getItem(<Link href="/general/rank">직급</Link>, '/general/rank'),
+        getItem(
+          <Link href="/general/abusive">욕설필터</Link>,
+          '/general/abusive',
+        ),
+      ]),
+      getItem(
+        <Link href="/operation">운영 시간 설정</Link>,
+        '/operation',
+        <FieldTimeOutlined />,
+      ),
+      getItem(
+        <Link href="/chatbot">챗봇 설정</Link>,
+        '/chatbot',
+        <RobotOutlined />,
+      ),
+      getItem('이벤트 설정', 'event', <GiftOutlined />, [
+        getItem(<Link href="/event/time">타임 이벤트</Link>, '/event/time'),
+        getItem(
+          <Link href="/event/instantly">즉시 이벤트</Link>,
+          '/event/instantly',
+        ),
+      ]),
+      getItem(
+        <Link href="/ticket/setting">티켓 설정</Link>,
+        '/ticket/setting',
+        <ProfileOutlined />,
+      ),
+    ],
+    'group',
+  ),
   { type: 'divider' },
 ];
 const Navigation = () => {

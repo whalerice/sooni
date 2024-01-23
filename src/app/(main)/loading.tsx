@@ -1,6 +1,10 @@
-'use client';
-import { Spin } from 'antd';
-
 export default function Loading() {
-  return <Spin tip="Loading" size="large"></Spin>;
+  return (
+    <>...Loading</>
+    // <div style={{ position: 'relative' }}>
+    //   <Spin tip="Loading" size="large">
+    //     <div className="content" />
+    //   </Spin>
+    // </div>
+  );
 }
