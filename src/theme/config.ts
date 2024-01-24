@@ -29,11 +29,6 @@ const themeConfig: ThemeConfig = {
   },
   components: {
     Layout: {
-      // lightSiderBg: '#f7f7f7',
-      // colorBgHeader: 'red',
-      // bodyBg: 'transparent',
-      // headerBg: '#f7f7f7',
-
       headerHeight: 50,
       headerPadding: 0,
     },

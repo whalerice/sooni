@@ -11,10 +11,20 @@ const ThemeSwitch = () => {
   const onChange = async (bool: boolean) => {
     setChecked(bool);
     await themeModeAction(themeMode === 'dark' ? 'light' : 'dark');
+    // if (themeMode === 'dark') {
+    //   document.body.classList.remove('dark');
+    //   document.body.classList.add('light');
+    // } else {
+    //   document.body.classList.remove('light');
+    //   document.body.classList.add('dark');
+    // }
   };
 
   useEffect(() => {
     setChecked(themeMode === 'dark' ? true : false);
+    // document.body.classList.remove('dark');
+    // document.body.classList.remove('light');
+    // document.body.classList.add(themeMode === 'dark' ? 'dark' : 'light');
   }, [themeMode]);
 
   return (

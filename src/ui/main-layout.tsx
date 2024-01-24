@@ -3,7 +3,8 @@
 import Navigation from '@/ui/navigation';
 import ThemeSwitch from '@/ui/theme-switch';
 
-import Image from 'next/image';
+// import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
@@ -11,7 +12,7 @@ import { theme, Button, Layout } from 'antd';
 import { SiderTheme } from 'antd/es/layout/Sider';
 import { CookieValueTypes, getCookie } from 'cookies-next';
 import { menuInfo } from '@/lib/constants';
-import Link from 'next/link';
+import clsx from 'clsx';
 
 const { Header, Content, Sider } = Layout;
 
@@ -24,41 +25,41 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setCurrentTheme(themeMode === 'dark' ? 'dark' : 'light');
-  }, [themeMode, pathname]);
+  }, [themeMode]);
 
   return (
-    <Layout hasSider>
+    // <Layout hasSider>
+    <>
       <Sider
         trigger={null}
         collapsible
         collapsed={collapsed}
         theme={currentTheme}
       >
-        <div style={{ height: token.Layout?.headerHeight }}>
+        <div style={{ height: token.Layout?.headerHeight }} className="logo">
           <Link href="/">logo</Link>
           {/* <Image src="/next.svg" width={100} height={30} alt="test" /> */}
         </div>
-        <Navigation />
+        <Navigation theme={currentTheme} />
       </Sider>
-      <Layout style={{ marginLeft: collapsed ? '8rem' : '20rem' }}>
-        <Header className={currentTheme}>
+      {/* style={{ marginLeft: collapsed ? '8rem' : '20rem' }} */}
+      <Layout className={clsx('container', currentTheme)}>
+        <Header>
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
-            style={{
-              width: '4rem',
-              height: '4rem',
-            }}
+            className="btn-collapse"
           />
           <ThemeSwitch />
         </Header>
-        <Content className="contents">
+        <Content>
           <div className="page-title">{menuInfo[pathname].pageTitle}</div>
           {children}
         </Content>
       </Layout>
-    </Layout>
+    </>
+    // </Layout>
   );
 };
 

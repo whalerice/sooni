@@ -4,7 +4,6 @@ import { Noto_Sans_KR } from 'next/font/google';
 import Registry from '@/theme/registry';
 
 const noto = Noto_Sans_KR({ weight: ['400', '700'], subsets: ['latin'] });
-// const colorMode = 'light';
 
 export const metadata: Metadata = {
   title: 'SOONi[suni:]',
@@ -18,14 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={clsx(
-          noto.className,
-          'antialiased',
-          'quantum',
-          // `qt-${colorMode}`,
-        )}
-      >
+      <body className={clsx(noto.className, 'antialiased', 'quantum')}>
         <Registry>{children}</Registry>
       </body>
     </html>

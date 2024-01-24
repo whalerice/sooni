@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
   let response = NextResponse.redirect(request.url);
 
   if (!theme) {
-    response.cookies.set('theme-mode', 'dark');
+    response.cookies.set('theme-mode', 'light');
     return response;
   }
 

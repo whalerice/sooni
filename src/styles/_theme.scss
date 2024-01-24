@@ -1,46 +1,33 @@
-.quantum {
-  .qt-layout {
-    // background-color: red;
-    // .qt-layout-sider {
-    //   background-color: blue;
-    //   overflow: 'auto';
-    //   height: '100vh';
-    //   position: 'fixed';
-    //   left: 0;
-    //   top: 0;
-    //   bottom: 0;
-    // }
-  }
-
-  .qt-layout-header {
-    &.light {
-      background-color: #fff;
+.#{$prefix}-layout {
+  &-sider-light {
+    background-color: $bg-light;
+    .logo {
+      background-color: $bg-light;
     }
   }
-  .gnb {
-    background-color: red;
-  }
-
-  .qt-layout-content {
-    min-height: 100vh;
-  }
-  .contents {
-    padding: 1.5rem;
-    .page-title {
+  &-sider-dark {
+    background-color: $bg-dark;
+    .logo {
+      background-color: $bg-dark;
     }
   }
 }
 
-.#{$prefix}-light {
-  //   background-color: red;
-  .#{$prefix}-btn-primary {
-    // background-color: yellow;
+.light {
+  .#{$prefix}-layout {
+    &-header {
+      background-color: $bg-light;
+    }
   }
 }
 
-.#{$prefix}-dark {
-  //   background-color: red;
-  .#{$prefix}-btn-primary {
-    // background-color: yellow;
+.dark {
+  .#{$prefix}-layout {
+    &-header {
+      background-color: $bg-dark;
+    }
+    &-content {
+      color: rgba(255, 255, 255, 0.85);
+    }
   }
 }

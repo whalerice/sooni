@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 
 import { Menu } from 'antd';
-import type { MenuProps } from 'antd';
+import type { MenuProps, MenuTheme } from 'antd';
 import { usePathname } from 'next/navigation';
 import { menuInfo } from '@/lib/constants';
 
@@ -74,13 +74,17 @@ const items: MenuProps['items'] = [
       ),
       getItem('/operation'),
       getItem('/chatbot'),
-      getItem('event', [getItem('/event/time'), getItem('/event/instantly')]),
+      getItem(
+        'event',
+        [getItem('/event/time'), getItem('/event/instantly')],
+        'sub',
+      ),
     ],
     'group',
   ),
   { type: 'divider' },
 ];
-const Navigation = () => {
+const Navigation = ({ theme }: { theme: MenuTheme }) => {
   const pathname = usePathname();
   let defaultSelectedKeys: string[] = [];
   let defaultOpenKeys: string[] = [];
@@ -113,6 +117,7 @@ const Navigation = () => {
       onOpenChange={onOpenChange}
       mode="inline"
       items={items}
+      theme={theme}
     />
   );
 };
