@@ -50,6 +50,10 @@ const request = {
 };
 
 export const apis = {
+  configuration: {
+    details: () => request.get('/configuration'),
+    languages: () => request.get('/configuration/languages'),
+  },
   movie: {
     popular: (params?: any) => request.get('/movie/popular', params),
     airingToday: (params?: any) => request.get('/tv/airing_today', params),

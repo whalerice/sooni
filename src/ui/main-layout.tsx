@@ -16,34 +16,28 @@ import clsx from 'clsx';
 
 const { Header, Content, Sider } = Layout;
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = ({
+  children,
+  themeMode,
+}: {
+  children: React.ReactNode;
+  themeMode: any;
+}) => {
   const pathname = usePathname();
-  const themeMode: CookieValueTypes = getCookie('theme-mode');
   const { token } = theme.useToken();
   const [collapsed, setCollapsed] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState<SiderTheme>('light');
-
-  useEffect(() => {
-    setCurrentTheme(themeMode === 'dark' ? 'dark' : 'light');
-  }, [themeMode]);
 
   return (
-    // <Layout hasSider>
     <>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        theme={currentTheme}
-      >
+      <Sider trigger={null} collapsible collapsed={collapsed} theme={themeMode}>
         <div style={{ height: token.Layout?.headerHeight }} className="logo">
           <Link href="/">logo</Link>
           {/* <Image src="/next.svg" width={100} height={30} alt="test" /> */}
         </div>
-        <Navigation theme={currentTheme} />
+        <Navigation theme={themeMode} />
       </Sider>
       {/* style={{ marginLeft: collapsed ? '8rem' : '20rem' }} */}
-      <Layout className={clsx('container', currentTheme)}>
+      <Layout className={clsx('container', themeMode)}>
         <Header>
           <Button
             type="text"
@@ -51,7 +45,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             onClick={() => setCollapsed(!collapsed)}
             className="btn-collapse"
           />
-          <ThemeSwitch />
+          <ThemeSwitch theme={themeMode} />
         </Header>
         <Content>
           <div className="page-title">{menuInfo[pathname].pageTitle}</div>
@@ -59,7 +53,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </Content>
       </Layout>
     </>
-    // </Layout>
   );
 };
 
