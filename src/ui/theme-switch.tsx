@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Switch } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { changeTheme } from '@/lib/actions';
+// import { changeTheme } from '@/lib/actions';
+import { setCookie } from 'cookies-next';
 
 type themeType = {
   [key: string]: boolean;
@@ -16,7 +17,9 @@ const ThemeSwitch = ({ theme }: any) => {
 
   const onChange = (bool: boolean) => {
     setChecked(bool);
-    changeTheme(bool ? 'dark' : 'light');
+    setCookie('theme-mode', bool ? 'dark' : 'light');
+    location.reload();
+    // changeTheme(bool ? 'dark' : 'light');
   };
 
   return (

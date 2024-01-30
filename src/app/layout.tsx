@@ -1,5 +1,3 @@
-export const dynamic = 'auto';
-
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
@@ -26,7 +24,7 @@ export default async function RootLayout({
           noto.className,
           'antialiased',
           'quantum',
-          `qt-mode-${mode}`,
+          `${mode}-mode`,
         )}
       >
         <Registry themeMode={mode}>{children}</Registry>

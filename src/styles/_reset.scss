@@ -11,4 +11,7 @@ body {
 
 body {
   font-size: 1.4rem;
+  &.dark-mode {
+    background-color: #000;
+  }
 }
