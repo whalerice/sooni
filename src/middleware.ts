@@ -1,6 +1,3 @@
-export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
-
 import { NextResponse, NextRequest } from 'next/server';
 // import { apis } from './lib/apis';
 

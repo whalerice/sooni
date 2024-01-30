@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
@@ -19,7 +22,14 @@ export default async function RootLayout({
   const mode = await getTheme();
   return (
     <html lang="en">
-      <body className={clsx(noto.className, 'antialiased', 'quantum')}>
+      <body
+        className={clsx(
+          noto.className,
+          'antialiased',
+          'quantum',
+          `qt-mode-${mode}`,
+        )}
+      >
         <Registry themeMode={mode}>{children}</Registry>
       </body>
     </html>
