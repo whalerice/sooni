@@ -2,6 +2,7 @@
 
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import {
+  legacyLogicalPropertiesTransformer,
   px2remTransformer,
   createCache,
   extractStyle,
@@ -10,27 +11,25 @@ import {
 import { useServerInsertedHTML } from 'next/navigation';
 import { ConfigProvider } from 'antd';
 import { themeAntModes, themeConfig } from '@/theme/config';
-import { CookieValueTypes, getCookie } from 'cookies-next';
 import '@/styles/index.scss';
 import ko from 'antd/locale/ko_KR';
 
-const prefix: string = 'qt';
-const cache = createCache();
-
-const Registry = ({ children }: { children: ReactNode }) => {
-  const themeMode: CookieValueTypes = getCookie('theme-mode');
+const Registry = ({
+  children,
+  themeMode,
+}: {
+  children: ReactNode;
+  themeMode: any;
+}) => {
+  const prefix: string = 'qt';
+  const cache = createCache();
   const inserted = useRef(false);
   const px2rem = px2remTransformer({
     rootValue: 10, // 10px = 1rem;
   });
-  const [currentTheme, setCurrentTheme] = useState<string>('');
-
-  useEffect(() => {
-    setCurrentTheme(themeMode ? themeMode : 'light');
-  }, [themeMode]);
 
   useServerInsertedHTML(() => {
-    const styleText = extractStyle(cache, { plain: true });
+    const styleText = extractStyle(cache, true);
 
     if (inserted.current) {
       return null;
@@ -49,9 +48,13 @@ const Registry = ({ children }: { children: ReactNode }) => {
   });
 
   return (
-    <StyleProvider transformers={[px2rem]} hashPriority="high" cache={cache}>
+    <StyleProvider
+      transformers={[legacyLogicalPropertiesTransformer, px2rem]}
+      hashPriority="high"
+      cache={cache}
+    >
       <ConfigProvider
-        theme={{ algorithm: themeAntModes[currentTheme], ...themeConfig }}
+        theme={{ algorithm: themeAntModes[themeMode], ...themeConfig }}
         prefixCls={prefix}
         iconPrefixCls={prefix}
         locale={ko}
