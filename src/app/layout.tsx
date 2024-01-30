@@ -1,5 +1,4 @@
-export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
+export const dynamic = 'auto';
 
 import clsx from 'clsx';
 import type { Metadata } from 'next';
