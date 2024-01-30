@@ -2,12 +2,7 @@
 
 import { setCookie } from 'cookies-next';
 import { cookies } from 'next/headers';
-// import { setCookie } from 'cookies-next';
 
-// export const darkMode: CookieValueTypes = getCookie('dark-mode');
-
-export async function themeModeAction(value: string) {
-  // console.log('themeModeAction', value);
-  // cookies().set('theme-mode', value);
+export async function changeTheme(value: string) {
   setCookie('theme-mode', value, { cookies });
 }

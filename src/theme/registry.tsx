@@ -52,6 +52,7 @@ const Registry = ({
       transformers={[legacyLogicalPropertiesTransformer, px2rem]}
       hashPriority="high"
       cache={cache}
+      autoClear
     >
       <ConfigProvider
         theme={{ algorithm: themeAntModes[themeMode], ...themeConfig }}
