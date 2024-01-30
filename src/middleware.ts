@@ -3,14 +3,13 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  const theme = request.cookies.has('theme-mode');
-  // const response = NextResponse.redirect(request.url);
-  const response = NextResponse.next();
-  console.log(theme);
+  let theme = request.cookies.get('theme-mode')?.value;
+  // let response = NextResponse.redirect(request.url);
+  // let response = NextResponse.next();
 
   if (!theme) {
-    response.cookies.set('theme-mode', 'light');
-    console.log(response);
+    NextResponse.next().cookies.set('theme-mode', 'light');
+    return NextResponse.next();
   }
 
   try {
@@ -28,8 +27,6 @@ export async function middleware(request: NextRequest) {
     console.log(error);
     throw error;
   }
-
-  return response;
 }
 
 // See "Matching Paths" below to learn more
