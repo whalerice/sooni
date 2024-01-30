@@ -1,10 +1,12 @@
 'use server';
 
-import { setCookie } from 'cookies-next';
+// import { setCookie } from 'cookies-next';
 import { cookies } from 'next/headers';
 
 export async function changeTheme(value: string) {
-  setCookie('theme-mode', value, { cookies });
+  cookies().set('theme-mode', value);
+
+  // setCookie('theme-mode', value, { cookies });
 }
 
 export async function getTheme() {
