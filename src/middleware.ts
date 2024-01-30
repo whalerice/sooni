@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
 
   if (!theme) {
     NextResponse.next().cookies.set('theme-mode', 'light');
-    return NextResponse.next();
+    // return NextResponse.next();
   }
 
   try {
