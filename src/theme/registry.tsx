@@ -46,16 +46,11 @@ const Registry = ({
       />
     );
   });
-
+  // legacyLogicalPropertiesTransformer, autoClear
   return (
-    <StyleProvider
-      transformers={[legacyLogicalPropertiesTransformer, px2rem]}
-      hashPriority="high"
-      cache={cache}
-      autoClear
-    >
+    <StyleProvider transformers={[px2rem]} hashPriority="high" cache={cache}>
       <ConfigProvider
-        theme={{ algorithm: themeAntModes[themeMode], ...themeConfig }}
+        // theme={{ algorithm: themeAntModes[themeMode], ...themeConfig }}
         prefixCls={prefix}
         iconPrefixCls={prefix}
         locale={ko}
