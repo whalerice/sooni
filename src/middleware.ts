@@ -4,7 +4,8 @@ import { NextResponse, NextRequest } from 'next/server';
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   let theme = request.cookies.get('theme-mode')?.value;
-  let response = NextResponse.redirect(request.url);
+  // let response = NextResponse.redirect(request.url);
+  let response = NextResponse.next();
 
   if (!theme) {
     response.cookies.set('theme-mode', 'light');

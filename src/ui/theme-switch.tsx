@@ -15,8 +15,10 @@ const ThemeSwitch = ({ theme }: any) => {
   const [checked, setChecked] = useState<boolean>(themeKey[theme]);
 
   const onChange = async (bool: boolean) => {
+    console.log('bool', bool);
+
     setChecked(bool);
-    await themeModeAction(theme === 'dark' ? 'light' : 'dark');
+    await themeModeAction(bool ? 'dark' : 'light');
   };
 
   return (
