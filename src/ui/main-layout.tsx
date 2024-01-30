@@ -6,7 +6,7 @@ import ThemeSwitch from '@/ui/theme-switch';
 // import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { theme, Button, Layout } from 'antd';
 import { menuInfo } from '@/lib/constants';

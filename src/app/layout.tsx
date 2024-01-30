@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import Registry from '@/theme/registry';
 import { cookies } from 'next/headers';
+import { getTheme } from '@/lib/actions';
 
 const noto = Noto_Sans_KR({ weight: ['400', '700'], subsets: ['latin'] });
 
@@ -11,12 +12,13 @@ export const metadata: Metadata = {
   description: 'SOONi Admin',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const mode = cookies().get('theme-mode')?.value;
+  const mode = await getTheme();
+  // const mode = cookies().get('theme-mode')?.value;
   return (
     <html lang="en">
       <body className={clsx(noto.className, 'antialiased', 'quantum')}>
