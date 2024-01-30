@@ -16,7 +16,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const mode = cookies().get('theme-mode')?.value;
+  const mode = cookies().get('theme-mode')?.value
+    ? cookies().get('theme-mode')?.value
+    : 'light';
   return (
     <html lang="en">
       <body className={clsx(noto.className, 'antialiased', 'quantum')}>

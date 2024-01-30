@@ -9,8 +9,6 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { theme, Button, Layout } from 'antd';
-import { SiderTheme } from 'antd/es/layout/Sider';
-import { CookieValueTypes, getCookie } from 'cookies-next';
 import { menuInfo } from '@/lib/constants';
 import clsx from 'clsx';
 
