@@ -11,6 +11,7 @@ import {
 import { useServerInsertedHTML } from 'next/navigation';
 import { ConfigProvider } from 'antd';
 import { themeAntModes, themeConfig } from '@/theme/config';
+import { CookieValueTypes, getCookie } from 'cookies-next';
 import '@/styles/index.scss';
 import ko from 'antd/locale/ko_KR';
 
@@ -27,6 +28,11 @@ const Registry = ({
   const px2rem = px2remTransformer({
     rootValue: 10, // 10px = 1rem;
   });
+  const [currentTheme, setCurrentTheme] = useState<string>(themeMode);
+
+  useEffect(() => {
+    setCurrentTheme(themeMode);
+  }, [themeMode]);
 
   useServerInsertedHTML(() => {
     const styleText = extractStyle(cache, true);
@@ -54,7 +60,7 @@ const Registry = ({
       cache={cache}
     >
       <ConfigProvider
-        theme={{ algorithm: themeAntModes[themeMode], ...themeConfig }}
+        theme={{ algorithm: themeAntModes[currentTheme], ...themeConfig }}
         prefixCls={prefix}
         iconPrefixCls={prefix}
         locale={ko}
