@@ -17,7 +17,11 @@ function getItem(
     if (type) {
       return menuInfo[key].nav;
     }
-    return <Link href={key}>{menuInfo[key].nav}</Link>;
+    return (
+      <Link href={key} scroll={false}>
+        {menuInfo[key].nav}
+      </Link>
+    );
   };
 
   let getIcon = (key: any) => {

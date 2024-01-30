@@ -29,7 +29,9 @@ const MainLayout = ({
     <>
       <Sider trigger={null} collapsible collapsed={collapsed} theme={themeMode}>
         <div style={{ height: token.Layout?.headerHeight }} className="logo">
-          <Link href="/">logo</Link>
+          <Link href="/" scroll={false}>
+            logo
+          </Link>
           {/* <Image src="/next.svg" width={100} height={30} alt="test" /> */}
         </div>
         <Navigation theme={themeMode} />
