@@ -3,8 +3,6 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  console.log('bb');
-
   let theme = request.cookies.get('theme-mode')?.value;
   // let response = NextResponse.redirect(request.url);
   let response = NextResponse.next();
@@ -33,8 +31,7 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: '/',
   //   matcher: '/about/:path*',
   // matcher: '/',
-  // matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 };

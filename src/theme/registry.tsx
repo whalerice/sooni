@@ -29,7 +29,7 @@ const Registry = ({
   });
 
   useServerInsertedHTML(() => {
-    const styleText = extractStyle(cache, { plain: true });
+    const styleText = extractStyle(cache, true);
 
     if (inserted.current) {
       return null;
