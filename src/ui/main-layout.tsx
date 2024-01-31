@@ -11,8 +11,7 @@ import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { theme, Button, Layout } from 'antd';
 import { menuInfo } from '@/lib/constants';
 import clsx from 'clsx';
-import { signOut } from '@/auth';
-
+import { signOutAction } from '@/lib/actions';
 const { Header, Content, Sider } = Layout;
 
 const MainLayout = ({
@@ -25,12 +24,6 @@ const MainLayout = ({
   const pathname = usePathname();
   const { token } = theme.useToken();
   const [collapsed, setCollapsed] = useState(false);
-
-  const onSignOut = async () => {
-    console.log('onSignOut');
-
-    // await signOut({ redirect: true, redirectTo: '/login' });
-  };
 
   return (
     <>
@@ -53,7 +46,7 @@ const MainLayout = ({
             className="btn-collapse"
           />
           <ThemeSwitch theme={themeMode} />
-          <Button onClick={onSignOut}>로그아웃</Button>
+          <Button onClick={() => signOutAction()}>로그아웃</Button>
         </Header>
         <Content>
           <div className="page-title">{menuInfo[pathname].pageTitle}</div>

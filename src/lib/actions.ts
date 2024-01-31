@@ -1,6 +1,6 @@
 'use server';
 
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 import { cookies } from 'next/headers';
 
@@ -31,6 +31,17 @@ export async function authenticate(
           return 'Something went wrong.';
       }
     }
+    throw error;
+  }
+}
+
+export async function signOutAction() {
+  try {
+    await signOut();
+    // await signIn('credentials', formData);
+  } catch (error) {
+    console.log(error);
+
     throw error;
   }
 }
