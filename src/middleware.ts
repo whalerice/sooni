@@ -11,21 +11,21 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  try {
-    const response = await fetch(`${process.env.url}/authentication`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: { Authorization: `Bearer ${process.env.token}` },
-    });
+  // try {
+  //   const response = await fetch(`${process.env.url}/authentication`, {
+  //     method: 'GET',
+  //     credentials: 'include',
+  //     headers: { Authorization: `Bearer ${process.env.token}` },
+  //   });
 
-    // const response = await apis.authentication();
+  //   // const response = await apis.authentication();
 
-    if (response.status === 200) return NextResponse.next();
-    else console.log(response.status);
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  //   if (response.status === 200) return NextResponse.next();
+  //   else console.log(response.status);
+  // } catch (error) {
+  //   console.log(error);
+  //   throw error;
+  // }
 }
 
 // See "Matching Paths" below to learn more
