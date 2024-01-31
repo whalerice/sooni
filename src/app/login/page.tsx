@@ -3,17 +3,14 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import '@/styles/login.scss';
 import { Button, Card, Form, Input, Layout } from 'antd';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useFormState, useFormStatus } from 'react-dom';
+import { authenticate } from '@/lib/actions';
 
 export default function Page() {
+  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  // const { pending } = useFormStatus();
   const [form] = Form.useForm();
   const [clientReady, setClientReady] = useState<boolean>(false);
-  const router = useRouter();
-
-  const onFinish = (values: any) => {
-    console.log('Finish:', values);
-    router.push('/');
-  };
 
   useEffect(() => {
     setClientReady(true);
@@ -21,7 +18,7 @@ export default function Page() {
   return (
     <Layout className="login-area">
       <Card title="Admin" className="login-card">
-        <Form form={form} name="login" onFinish={onFinish}>
+        <Form form={form} name="login" onFinish={dispatch}>
           <Form.Item
             name="userId"
             rules={[{ required: true, message: 'Please input your user id!' }]}
@@ -62,6 +59,7 @@ export default function Page() {
             )}
           </Form.Item>
         </Form>
+        {errorMessage}
       </Card>
     </Layout>
   );
