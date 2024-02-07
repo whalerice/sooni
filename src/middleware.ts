@@ -13,16 +13,11 @@ export async function middleware(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
   const session = await auth();
-  console.log('middleware', session);
 
-  if (!session) {
-    if (path !== '/login') {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
-  } else {
-    if (path === '/login') {
-      return NextResponse.redirect(new URL('/', request.url));
-    }
+  if (!session && path !== '/login') {
+    return NextResponse.redirect(new URL('/login', request.url));
+  } else if (session && path === '/login') {
+    return NextResponse.redirect(new URL('/', request.url));
   }
 }
 

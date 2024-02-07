@@ -37,9 +37,10 @@ const send = async (options: SendParams) => {
 
     return response.data;
   } catch (error: any) {
-    if (error.response.data) {
+    if (error.response.status === 422) {
       throw new Error(error.response.data.message);
     }
+
     throw error;
   }
 };
@@ -58,13 +59,14 @@ export const apis = {
   user: {
     login: (data: { loginId: any; password: any }) =>
       request.post('/user/login', data),
+    logout: (data: { user: { id: any } }) => request.post('/user/logout', data),
   },
-  configuration: {
-    details: () => request.get('/configuration'),
-    languages: () => request.get('/configuration/languages'),
-  },
-  movie: {
-    popular: (params?: any) => request.get('/movie/popular', params),
-    airingToday: (params?: any) => request.get('/tv/airing_today', params),
-  },
+  // configuration: {
+  //   details: () => request.get('/configuration'),
+  //   languages: () => request.get('/configuration/languages'),
+  // },
+  // movie: {
+  //   popular: (params?: any) => request.get('/movie/popular', params),
+  //   airingToday: (params?: any) => request.get('/tv/airing_today', params),
+  // },
 };
