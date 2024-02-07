@@ -8,6 +8,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   env: {
+    APIURL: 'http://192.168.0.164:8080/api/v1',
     url: 'https://api.themoviedb.org/3',
     key: 'eb2e208e412583b3377f26c2f126e16b',
     token:

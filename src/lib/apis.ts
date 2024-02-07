@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const lang = 'ko-KR';
 const instance = axios.create({
-  baseURL: process.env.url,
+  // baseURL: process.env.url,
+  baseURL: process.env.APIURL,
 });
 
 type SendParams = {
@@ -27,6 +28,7 @@ const send = async (options: SendParams) => {
         Accept: 'application/json',
         ...(isForm ? { 'Content-Type': 'multipart/form-data' } : {}),
       },
+      withCredentials: true,
     });
 
     if (response.status !== 200) {
@@ -34,7 +36,10 @@ const send = async (options: SendParams) => {
     }
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
+    if (error.response.data) {
+      throw new Error(error.response.data.message);
+    }
     throw error;
   }
 };
@@ -50,6 +55,10 @@ const request = {
 };
 
 export const apis = {
+  user: {
+    login: (data: { loginId: any; password: any }) =>
+      request.post('/user/login', data),
+  },
   configuration: {
     details: () => request.get('/configuration'),
     languages: () => request.get('/configuration/languages'),

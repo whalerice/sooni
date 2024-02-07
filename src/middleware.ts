@@ -13,8 +13,7 @@ export async function middleware(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
   const session = await auth();
-  console.log(session);
-  console.log(path);
+  console.log('middleware', session);
 
   if (!session) {
     if (path !== '/login') {
