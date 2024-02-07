@@ -1,17 +1,18 @@
 'use client';
 
-import Navigation from '@/ui/navigation';
-import ThemeSwitch from '@/ui/theme-switch';
+import Navigation from '@/ui/layout/navigation';
+import ThemeSwitch from '@/ui/layout/theme-switch';
 
 // import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-import { theme, Button, Layout } from 'antd';
+import { theme, Button, Layout, Row, Col, Space } from 'antd';
 import { menuInfo } from '@/lib/constants';
 import clsx from 'clsx';
 import { signOutAction } from '@/lib/actions';
+import UserInfo from './user-info';
 const { Header, Content, Sider } = Layout;
 
 const MainLayout = ({
@@ -38,15 +39,18 @@ const MainLayout = ({
       </Sider>
       {/* style={{ marginLeft: collapsed ? '8rem' : '20rem' }} */}
       <Layout className={clsx('container', themeMode)}>
-        <Header>
+        <Header className="header">
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             className="btn-collapse"
           />
-          <ThemeSwitch theme={themeMode} />
-          <Button onClick={() => signOutAction()}>로그아웃</Button>
+          <Space align="center">
+            <UserInfo />
+            <ThemeSwitch theme={themeMode} />
+            <Button onClick={() => signOutAction()}>로그아웃</Button>
+          </Space>
         </Header>
         <Content>
           <div className="page-title">{menuInfo[pathname].pageTitle}</div>

@@ -1,5 +1,5 @@
 import { getTheme } from '@/lib/actions';
-import MainLayout from '@/ui/main-layout';
+import MainLayout from '@/ui/layout/main-layout';
 
 export default async function Layout({
   children,
