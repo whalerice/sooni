@@ -1,10 +1,13 @@
 import axios from 'axios';
+import { getCookie } from 'cookies-next';
 
 const lang = 'ko-KR';
 const instance = axios.create({
   // baseURL: process.env.url,
   baseURL: process.env.APIURL,
 });
+
+const sessionToken = getCookie('x-qbot-session');
 
 type SendParams = {
   url: string;
@@ -24,7 +27,8 @@ const send = async (options: SendParams) => {
       data,
       params: { language: lang, ...params },
       headers: {
-        Authorization: `Bearer ${process.env.token}`,
+        ...(sessionToken ? { 'x-qbot-session': sessionToken } : {}),
+        // Authorization: `Bearer ${process.env.token}`,
         Accept: 'application/json',
         ...(isForm ? { 'Content-Type': 'multipart/form-data' } : {}),
       },
@@ -37,6 +41,8 @@ const send = async (options: SendParams) => {
 
     return response.data;
   } catch (error: any) {
+    // console.log(error);
+
     if (error.response.status === 422) {
       throw new Error(error.response.data.message);
     }
@@ -60,6 +66,7 @@ export const apis = {
     login: (data: { loginId: any; password: any }) =>
       request.post('/user/login', data),
     logout: (data: { user: { id: any } }) => request.post('/user/logout', data),
+    SessionTouch: () => request.get('/user/session-touch'),
   },
   // configuration: {
   //   details: () => request.get('/configuration'),

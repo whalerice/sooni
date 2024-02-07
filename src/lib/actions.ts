@@ -3,7 +3,7 @@
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 import { cookies } from 'next/headers';
-import { apis } from './apis';
+import { apis } from '@/lib/apis';
 
 export async function changeTheme(value: string) {
   cookies().set('theme-mode', value);
@@ -12,6 +12,21 @@ export async function changeTheme(value: string) {
 export async function getTheme() {
   const mode = cookies().get('theme-mode')?.value;
   return mode;
+}
+
+export async function sessionTouch() {
+  'use server';
+  try {
+    const res = await fetch(`${process.env.APIURL}/user/session-touch`, {
+      method: 'GET',
+    });
+    const setCookie = res.headers.get('set-cookie');
+    const text = setCookie!.split(' ');
+    const sooniSession = text[0].split('=');
+    return sooniSession;
+  } catch (error: any) {
+    throw error;
+  }
 }
 
 export async function authenticate(
@@ -35,16 +50,13 @@ export async function authenticate(
 
 export async function signOutAction() {
   const id = cookies().get('id')?.value;
-  console.log(id);
 
   try {
-    // cookies().delete('id');
-    // cookies().delete('name');
-    // cookies().delete('x-qbot-session');
+    cookies().delete('id');
+    cookies().delete('x-qbot-session');
     await signOut();
 
-    // const response = await apis.user.logout({ user: { id: id } });
-    // console.log(response);
+    await apis.user.logout({ user: { id: id } });
   } catch (error: any) {
     // console.log(error.response.status);
     // console.log(error.response.data.message);

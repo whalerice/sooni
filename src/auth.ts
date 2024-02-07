@@ -2,6 +2,8 @@ import NextAuth from 'next-auth';
 import type { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { apis } from '@/lib/apis';
+import { sessionTouch } from '@/lib/actions';
+import { cookies } from 'next/headers';
 
 export const authConfig = {
   pages: { signIn: '/login' },
@@ -17,7 +19,16 @@ export const authConfig = {
           password: credentials.password,
         });
 
-        if (response) return response;
+        if (response) {
+          console.log(response);
+          cookies().set('id', response['id']);
+
+          const token = await sessionTouch();
+          if (token) {
+            cookies().set(token[0], token[1]);
+          }
+          return response;
+        }
 
         return null;
       },
