@@ -1,10 +1,12 @@
 'use client';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import '@/styles/login.scss';
-import { Button, Card, Form, Input, Layout } from 'antd';
+import { Button, Card, Form, Input, Layout, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/lib/actions';
+
+const { Text } = Typography;
 
 export default function Page() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
@@ -20,7 +22,7 @@ export default function Page() {
       <Card title="Admin" className="login-card">
         <Form form={form} name="login" onFinish={dispatch}>
           <Form.Item
-            name="userId"
+            name="loginId"
             rules={[{ required: true, message: 'Please input your user id!' }]}
           >
             <Input prefix={<UserOutlined />} placeholder="ID" />
@@ -59,7 +61,7 @@ export default function Page() {
             )}
           </Form.Item>
         </Form>
-        {errorMessage}
+        <Text type="danger">{errorMessage}</Text>
       </Card>
     </Layout>
   );

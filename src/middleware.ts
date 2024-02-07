@@ -11,54 +11,23 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
+  const path = request.nextUrl.pathname;
   const session = await auth();
+  console.log(session);
+  console.log(path);
 
-  // const path = request.nextUrl.pathname;
   if (!session) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    if (path !== '/login') {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  } else {
+    if (path === '/login') {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
   }
-
-  // else if (session && (path === '/login' || path === '/signup')) {
-  //   return NextResponse.redirect(new URL('/', request.url));
-  // }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: [
-    '/',
-    // '/login',
-    // '/main/:path*',
-    // '/ticket/:path*',
-    // '/branch/:path*',
-    // '/chatbot/:path*',
-    // '/general/:path*',
-    // '//:path*',
-    // '//:path*',
-    // '//:path*',
-    // '//:path*',
-    // '//:path*',
-    // '//:path*',
-  ],
-  // matcher: [
-  //   /*
-  //    * Match all request paths except for the ones starting with:
-  //    * - api (API routes)
-  //    * - _next/static (static files)
-  //    * - _next/image (image optimization files)
-  //    * - favicon.ico (favicon file)
-  //    */
-  //   {
-  //     source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  //     missing: [
-  //       { type: 'header', key: 'next-router-prefetch' },
-  //       { type: 'header', key: 'purpose', value: 'prefetch' },
-  //     ],
-  //   },
-  // ],
-  // matcher: ['/', '/ticket/:path*', '/(.*)/:path*'],
-  // matcher: '/api/:function*',
-  //   matcher: '/about/:path*',
-  // matcher: '/:path*',
-  // matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };

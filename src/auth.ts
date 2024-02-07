@@ -7,19 +7,31 @@ export const authConfig = {
   providers: [
     CredentialsProvider({
       credentials: {
-        id: { label: 'Id', type: 'text' },
+        loginId: { label: 'loginId', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, request) {
         console.log(credentials);
 
-        console.log(request);
+        const res = await fetch('http://192.168.0.164:8080/api/v1/user/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            loginId: credentials.loginId,
+            password: credentials.password,
+          }),
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+        });
 
-        const user = {
-          /* add function to get user */
-        };
+        const user = await res.json();
 
-        return user;
+        if (res.ok && user) {
+          return user;
+        }
+        if (res.status > 200) {
+          throw new Error(user.message);
+        }
+        return null;
       },
     }),
   ],
