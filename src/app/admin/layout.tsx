@@ -1,4 +1,4 @@
-import { getTheme } from '@/lib/actions';
+import { getGrade, getTheme } from '@/lib/actions';
 import MainLayout from '@/ui/layout/main-layout';
 
 export default async function Layout({
@@ -7,10 +7,13 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const mode = await getTheme();
+  const grade = await getGrade();
 
   return (
     <>
-      <MainLayout themeMode={mode}>{children}</MainLayout>
+      <MainLayout themeMode={mode} grade={grade!}>
+        {children}
+      </MainLayout>
     </>
   );
 }

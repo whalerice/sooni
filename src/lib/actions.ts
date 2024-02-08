@@ -10,8 +10,11 @@ export async function changeTheme(value: string) {
 }
 
 export async function getTheme() {
-  const mode = cookies().get('theme-mode')?.value;
-  return mode;
+  return cookies().get('theme-mode')?.value;
+}
+
+export async function getGrade() {
+  return cookies().get('grade')?.value;
 }
 
 export async function sessionTouch() {
@@ -54,6 +57,7 @@ export async function signOutAction() {
   try {
     cookies().delete('id');
     cookies().delete('x-qbot-session');
+    cookies().delete('grade');
     await signOut();
 
     await apis.user.logout({ user: { id: id } });

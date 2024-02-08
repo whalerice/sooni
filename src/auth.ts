@@ -5,6 +5,14 @@ import { apis } from '@/lib/apis';
 import { sessionTouch } from '@/lib/actions';
 import { cookies } from 'next/headers';
 
+type GradeType = {
+  [key: string]: string;
+};
+const gradeType: GradeType = {
+  SUPER: 'admin',
+  AGENT: 'agent',
+};
+
 export const authConfig = {
   pages: { signIn: '/login' },
   providers: [
@@ -22,6 +30,9 @@ export const authConfig = {
         if (response) {
           console.log(response);
           cookies().set('id', response['id']);
+
+          const grade = gradeType[response['type']];
+          cookies().set('grade', grade);
 
           const token = await sessionTouch();
           if (token) {

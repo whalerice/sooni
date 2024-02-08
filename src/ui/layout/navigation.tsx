@@ -39,26 +39,44 @@ function getItem(
   } as MenuItem;
 }
 
+const agentItems: MenuProps['items'] = [
+  getItem('dashboard', [getItem('/agent')], 'group'),
+  getItem('tickets', [getItem('/agent/ticket')], 'group'),
+  getItem(
+    'management',
+    [
+      getItem('/agent/answer'),
+      getItem('/agent/branch'),
+      getItem('/agent/roadshow'),
+    ],
+    'group',
+  ),
+];
+
 const items: MenuProps['items'] = [
   getItem(
     'dashboard',
-    [getItem('/'), getItem('/monitor'), getItem('/report')],
+    [getItem('/admin'), getItem('/admin/monitor'), getItem('/admin/report')],
     'group',
   ),
   { type: 'divider' },
-  getItem('tickets', [getItem('/ticket'), getItem('/ticket/setting')], 'group'),
+  getItem(
+    'tickets',
+    [getItem('/admin/ticket'), getItem('/admin/ticket/setting')],
+    'group',
+  ),
   { type: 'divider' },
   getItem(
     'management',
     [
-      getItem('/team'),
-      getItem('/member'),
-      getItem('/manager'),
-      getItem('/counselor'),
-      getItem('/message'),
-      getItem('/answer'),
-      getItem('/branch'),
-      getItem('/roadshow'),
+      getItem('/admin/team'),
+      getItem('/admin/member'),
+      getItem('/admin/manager'),
+      getItem('/admin/counselor'),
+      getItem('/admin/message'),
+      getItem('/admin/answer'),
+      getItem('/admin/branch'),
+      getItem('/admin/roadshow'),
     ],
     'group',
   ),
@@ -69,18 +87,18 @@ const items: MenuProps['items'] = [
       getItem(
         'general',
         [
-          getItem('/general'),
-          getItem('/general/auto'),
-          getItem('/general/rank'),
-          getItem('/general/abusive'),
+          getItem('/admin/general'),
+          getItem('/admin/general/auto'),
+          getItem('/admin/general/rank'),
+          getItem('/admin/general/abusive'),
         ],
         'sub',
       ),
-      getItem('/operation'),
-      getItem('/chatbot'),
+      getItem('/admin/operation'),
+      getItem('/admin/chatbot'),
       getItem(
         'event',
-        [getItem('/event/time'), getItem('/event/instantly')],
+        [getItem('/admin/event/time'), getItem('/admin/event/instantly')],
         'sub',
       ),
     ],
@@ -88,7 +106,17 @@ const items: MenuProps['items'] = [
   ),
   { type: 'divider' },
 ];
-const Navigation = ({ theme }: { theme: MenuTheme }) => {
+
+type GradeType = {
+  [key: string]: MenuProps['items'];
+};
+
+const gradeMenu: GradeType = {
+  admin: items,
+  agent: agentItems,
+};
+
+const Navigation = ({ theme, grade }: { theme: MenuTheme; grade: string }) => {
   const pathname = usePathname();
   let defaultSelectedKeys: string[] = [];
   let defaultOpenKeys: string[] = [];
@@ -110,9 +138,9 @@ const Navigation = ({ theme }: { theme: MenuTheme }) => {
   const onOpenChange = (openKeys: string[]) => {
     defaultOpenKeys = [...defaultOpenKeys, ...openKeys];
   };
-
+  // items
   useEffect(() => {
-    loop(items);
+    loop(gradeMenu[grade]);
   }, [pathname]);
   return (
     <Menu
@@ -120,7 +148,7 @@ const Navigation = ({ theme }: { theme: MenuTheme }) => {
       defaultOpenKeys={defaultOpenKeys}
       onOpenChange={onOpenChange}
       mode="inline"
-      items={items}
+      items={gradeMenu[grade]}
       theme={theme}
     />
   );

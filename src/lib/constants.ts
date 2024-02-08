@@ -26,99 +26,108 @@ type MenuInfoType = {
   };
 };
 
+// type GradeType = {
+//   [key: string]: string;
+// };
+
+// const grade: GradeType = {
+//   admin: 'admin',
+//   agent: 'agent',
+// };
+
 export const menuInfo: MenuInfoType = {
-  '/': {
+  '/admin': {
     pageTitle: '대시보드 - 실시간',
     nav: '실시간',
     icon: DashboardOutlined,
   },
-  '/monitor': {
+  '/admin/monitor': {
     pageTitle: '모니터링',
     nav: '모니터링',
     icon: FundViewOutlined,
   },
-  '/report': {
+  '/admin/report': {
     pageTitle: '리포트',
     nav: '리포트',
     icon: PieChartOutlined,
   },
-  '/ticket': {
+  '/admin/ticket': {
     pageTitle: '티켓 조회',
     nav: '티켓 조회',
     icon: SearchOutlined,
   },
-  '/ticket/setting': {
+  '/admin/ticket/setting': {
     pageTitle: '티켓 설정',
     nav: '티켓 설정',
     icon: ProfileOutlined,
   },
-  '/team': { pageTitle: '팀', nav: '팀', icon: TeamOutlined },
-  '/member': {
+  '/admin/team': { pageTitle: '팀', nav: '팀', icon: TeamOutlined },
+  '/admin/member': {
     pageTitle: '팀원 관리',
     nav: '팀원 관리',
     icon: UserAddOutlined,
   },
-  '/manager': {
+  '/admin/manager': {
     pageTitle: '관리자',
     nav: '관리자',
     icon: SolutionOutlined,
   },
-  '/counselor': {
+  '/admin/counselor': {
     pageTitle: '상담사',
     nav: '상담사',
     icon: UserOutlined,
   },
-  '/message': {
+  '/admin/message': {
     pageTitle: '챗봇 메세지',
     nav: '챗봇 메세지',
     icon: CommentOutlined,
   },
-  '/answer': {
+  '/admin/answer': {
     pageTitle: '빠른답변',
     nav: '빠른답변',
     icon: ThunderboltOutlined,
   },
-  '/branch': {
+  '/admin/branch': {
     pageTitle: '점포공감',
     nav: '점포공감',
     icon: ShopOutlined,
   },
-  '/roadshow': {
+  '/admin/roadshow': {
     pageTitle: '로드쇼',
     nav: '로드쇼',
     icon: StarOutlined,
   },
-  '/general': {
+  '/admin/general': {
     pageTitle: '일반',
     nav: '일반',
   },
-  '/general/auto': {
+  '/admin/general/auto': {
     pageTitle: '자동화',
     nav: '자동화',
   },
-  '/general/rank': {
+  '/admin/general/rank': {
     pageTitle: '직급',
     nav: '직급',
   },
-  '/general/abusive': {
+  '/admin/general/abusive': {
     pageTitle: '욕설필터',
     nav: '욕설필터',
   },
-  '/operation': {
+  '/admin/operation': {
     pageTitle: '운영 시간 설정',
     nav: '운영 시간 설정',
     icon: FieldTimeOutlined,
   },
-  '/chatbot': {
+  '/admin/chatbot': {
     pageTitle: '챗봇 설정',
     nav: '챗봇 설정',
     icon: RobotOutlined,
   },
-  '/event/time': {
+  '/admin/event/time': {
     pageTitle: '타임 이벤트',
     nav: '타임 이벤트',
   },
-  '/event/instantly': {
+  '/admin/event/instantly': {
     pageTitle: '즉시 이벤트',
     nav: '즉시 이벤트',
   },
@@ -128,4 +137,29 @@ export const menuInfo: MenuInfoType = {
   setting: { pageTitle: '', nav: '설정' },
   general: { pageTitle: '', nav: '일반설정', icon: SettingOutlined },
   event: { pageTitle: '', nav: '이벤트 설정', icon: GiftOutlined },
+  '/agent': {
+    pageTitle: '대시보드',
+    nav: '대시보드',
+    icon: DashboardOutlined,
+  },
+  '/agent/ticket': {
+    pageTitle: '나의 티켓',
+    nav: '나의 티켓',
+    icon: ProfileOutlined,
+  },
+  '/agent/answer': {
+    pageTitle: '빠른답변',
+    nav: '빠른답변',
+    icon: ThunderboltOutlined,
+  },
+  '/agent/branch': {
+    pageTitle: '점포공감',
+    nav: '점포공감',
+    icon: ShopOutlined,
+  },
+  '/agent/roadshow': {
+    pageTitle: '로드쇼',
+    nav: '로드쇼',
+    icon: StarOutlined,
+  },
 };

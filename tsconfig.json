@@ -26,7 +26,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(main)/system/code-info",
+    "src/app/admin/system/code-info",
   ],
   "exclude": ["node_modules"],
 }

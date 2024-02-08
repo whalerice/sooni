@@ -1,9 +1,10 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { auth } from '@/auth';
+import { getGrade, getTheme } from '@/lib/actions';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  let theme = request.cookies.get('theme-mode')?.value;
+  const theme = await getTheme();
   let response = NextResponse.redirect(request.url);
 
   if (!theme) {
@@ -12,12 +13,20 @@ export async function middleware(request: NextRequest) {
   }
 
   const path = request.nextUrl.pathname;
+
   const session = await auth();
+  const grade = await getGrade();
+
+  console.log('session', session);
 
   if (!session && path !== '/login') {
     return NextResponse.redirect(new URL('/login', request.url));
   } else if (session && path === '/login') {
-    return NextResponse.redirect(new URL('/', request.url));
+    const url = `/${grade}`;
+    return NextResponse.redirect(new URL(url, request.url));
+  } else if (session && path === '/') {
+    const url = `/${grade}`;
+    return NextResponse.redirect(new URL(url, request.url));
   }
 }
 
