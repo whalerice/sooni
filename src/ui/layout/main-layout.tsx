@@ -3,6 +3,7 @@
 import Navigation from '@/ui/layout/navigation';
 import ThemeSwitch from '@/ui/layout/theme-switch';
 import UserInfo from '@/ui/layout/user-info';
+import SignOut from '@/ui/layout/sign-out';
 
 // import Image from 'next/image';
 import Link from 'next/link';
@@ -12,11 +13,8 @@ import { useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { theme, Button, Layout, Space } from 'antd';
 import { menuInfo } from '@/lib/constants';
-import { signOutAction } from '@/lib/actions';
 
 const { Header, Content, Sider } = Layout;
-
-import { useSession } from 'next-auth/react';
 
 const MainLayout = ({
   children,
@@ -30,8 +28,6 @@ const MainLayout = ({
   const pathname = usePathname();
   const { token } = theme.useToken();
   const [collapsed, setCollapsed] = useState(false);
-
-  console.log('useSession', useSession);
 
   return (
     <>
@@ -56,7 +52,7 @@ const MainLayout = ({
           <Space align="center">
             <UserInfo />
             <ThemeSwitch theme={themeMode} />
-            <Button onClick={() => signOutAction()}>로그아웃</Button>
+            <SignOut />
           </Space>
         </Header>
         <Content>

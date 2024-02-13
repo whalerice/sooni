@@ -11,7 +11,7 @@ export default async function Layout({
 
   return (
     <>
-      <MainLayout themeMode={mode} grade={grade}>
+      <MainLayout themeMode={mode} grade={grade!}>
         {children}
       </MainLayout>
     </>

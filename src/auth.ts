@@ -3,21 +3,12 @@ import type { NextAuthConfig, Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { apis } from '@/lib/apis';
-import { sessionTouch } from '@/lib/actions';
-// import { cookies } from 'next/headers';
-
-type GradeType = {
-  [key: string]: string;
-};
-const gradeType: GradeType = {
-  SUPER: 'admin',
-  AGENT: 'agent',
-};
 
 declare module 'next-auth' {
   interface Session {
     user: {
       type: string;
+      id: string;
     };
   }
 }
@@ -36,10 +27,7 @@ export const authConfig = {
           password: credentials.password,
         });
 
-        if (response) {
-          await sessionTouch();
-          return response;
-        }
+        if (response) return response;
 
         return null;
       },
@@ -54,6 +42,7 @@ export const authConfig = {
       return session;
     },
   },
+
   secret: 'dddd',
 } satisfies NextAuthConfig;
 

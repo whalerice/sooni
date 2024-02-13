@@ -13,21 +13,36 @@ export async function getTheme() {
   return cookies().get('theme-mode')?.value;
 }
 
-export async function sessionTouch() {
-  'use server';
-  try {
-    const res = await fetch(`${process.env.APIURL}/user/session-touch`, {
-      method: 'GET',
-    });
-    const setCookie = res.headers.get('set-cookie');
-    const text = setCookie!.split(' ');
+export async function saveSessionCookie(id: string) {
+  const reg = /[\{\}\[\]\/?.,;:|\)*~`!^\_+<>@\#$%&\\\(\'\"]/gi;
+  const text = id.replace(reg, '').split(/\s/)[0].split(/\=/);
 
-    const sooniSession = text[0].split('=');
-    cookies().set(sooniSession[0], sooniSession[1]);
-  } catch (error: any) {
-    throw error;
-  }
+  cookies().set(text[0], text[1]);
 }
+
+// export async function sessionTouch() {
+//   const res = apis.user.sessionTouch();
+//   console.log('sessionTouch', res);
+
+//   // try {
+//   //   const res = await fetch(`${process.env.APIURL}/user/session-touch`, {
+//   //     method: 'GET',
+//   //   });
+//   //   console.log(res);
+
+//   //   const setCookie = res.headers.get('set-cookie');
+//   //   const text = setCookie!.split(' ');
+
+//   //   const sooniSession = text[0].split('=');
+//   //   cookies().set(sooniSession[0], sooniSession[1]);
+//   // } catch (error: any) {
+//   //   console.log(error);
+
+//   //   throw error;
+//   // } finally {
+//   //   console.log('finally');
+//   // }
+// }
 
 // sign in
 export async function authenticate(
@@ -51,23 +66,22 @@ export async function authenticate(
 
 // sign out
 export async function signOutAction() {
-  const id = cookies().get('id')?.value;
+  const { user } = await getAuth();
+
+  cookies()
+    .getAll()
+    .forEach((e) => {
+      if (e.name.indexOf('theme') < 0) {
+        cookies().delete(e.name);
+      }
+    });
 
   try {
-    cookies().delete('id');
-    cookies().delete('x-qbot-session');
-    cookies().delete('grade');
+    await apis.user.logout({ user: { id: user?.id } });
+  } catch (error) {
+    console.log('error', error);
+  } finally {
     await signOut();
-
-    await apis.user.logout({ user: { id: id } });
-  } catch (error: any) {
-    // console.log(error.response.status);
-    // console.log(error.response.data.message);
-
-    throw error;
-    // console.log(error.response.data);
-
-    // throw error.response.data.message;
   }
 }
 

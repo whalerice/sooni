@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
+import { saveSessionCookie } from '@/lib/actions';
+import { cookies } from 'next/headers';
 
 const lang = 'ko-KR';
 const instance = axios.create({
   // baseURL: process.env.url,
   baseURL: process.env.APIURL,
 });
-
-const sessionToken = getCookie('x-qbot-session');
 
 type SendParams = {
   url: string;
@@ -17,15 +17,17 @@ type SendParams = {
   isForm?: boolean;
   isRefreshToken?: boolean;
 };
-
+// language: lang,
 const send = async (options: SendParams) => {
+  const sessionToken = cookies().get('x-qbot-session')?.value;
+
   const { url, method, data, params, isForm } = options;
   try {
     const response = await instance.request({
       url,
       method,
       data,
-      params: { language: lang, ...params },
+      params: params,
       headers: {
         ...(sessionToken ? { 'x-qbot-session': sessionToken } : {}),
         // Authorization: `Bearer ${process.env.token}`,
@@ -34,6 +36,10 @@ const send = async (options: SendParams) => {
       },
       withCredentials: true,
     });
+
+    if (response.headers['set-cookie']) {
+      saveSessionCookie(response.headers['set-cookie'][0]);
+    }
 
     if (response.status !== 200) {
       throw response;
@@ -66,7 +72,7 @@ export const apis = {
     login: (data: { loginId: any; password: any }) =>
       request.post('/user/login', data),
     logout: (data: { user: { id: any } }) => request.post('/user/logout', data),
-    SessionTouch: () => request.get('/user/session-touch'),
+    sessionTouch: () => request.get('/user/session-touch'),
   },
   // configuration: {
   //   details: () => request.get('/configuration'),
