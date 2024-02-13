@@ -112,6 +112,7 @@ type GradeType = {
 };
 
 const gradeMenu: GradeType = {
+  super: items,
   admin: items,
   agent: agentItems,
 };

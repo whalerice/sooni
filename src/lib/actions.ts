@@ -1,6 +1,6 @@
 'use server';
 
-import { signIn, signOut } from '@/auth';
+import { auth, signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 import { cookies } from 'next/headers';
 import { apis } from '@/lib/apis';
@@ -13,10 +13,6 @@ export async function getTheme() {
   return cookies().get('theme-mode')?.value;
 }
 
-export async function getGrade() {
-  return cookies().get('grade')?.value;
-}
-
 export async function sessionTouch() {
   'use server';
   try {
@@ -25,13 +21,15 @@ export async function sessionTouch() {
     });
     const setCookie = res.headers.get('set-cookie');
     const text = setCookie!.split(' ');
+
     const sooniSession = text[0].split('=');
-    return sooniSession;
+    cookies().set(sooniSession[0], sooniSession[1]);
   } catch (error: any) {
     throw error;
   }
 }
 
+// sign in
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
@@ -51,6 +49,7 @@ export async function authenticate(
   }
 }
 
+// sign out
 export async function signOutAction() {
   const id = cookies().get('id')?.value;
 
@@ -70,4 +69,16 @@ export async function signOutAction() {
 
     // throw error.response.data.message;
   }
+}
+
+export async function getAuth() {
+  const session = await auth();
+  // console.log(session);
+
+  // console.log('getAuth', session);
+
+  const grade = session?.user.type.toLowerCase();
+  const user = session?.user;
+
+  return { grade, user };
 }

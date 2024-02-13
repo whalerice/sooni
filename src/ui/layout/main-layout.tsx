@@ -16,6 +16,8 @@ import { signOutAction } from '@/lib/actions';
 
 const { Header, Content, Sider } = Layout;
 
+import { useSession } from 'next-auth/react';
+
 const MainLayout = ({
   children,
   themeMode,
@@ -28,6 +30,8 @@ const MainLayout = ({
   const pathname = usePathname();
   const { token } = theme.useToken();
   const [collapsed, setCollapsed] = useState(false);
+
+  console.log('useSession', useSession);
 
   return (
     <>

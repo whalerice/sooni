@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { auth } from '@/auth';
-import { getGrade, getTheme } from '@/lib/actions';
+import { getAuth, getTheme } from '@/lib/actions';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
@@ -13,20 +13,23 @@ export async function middleware(request: NextRequest) {
   }
 
   const path = request.nextUrl.pathname;
+  const { grade } = await getAuth();
 
-  const session = await auth();
-  const grade = await getGrade();
-
-  console.log('session', session);
-
-  if (!session && path !== '/login') {
-    return NextResponse.redirect(new URL('/login', request.url));
-  } else if (session && path === '/login') {
-    const url = `/${grade}`;
-    return NextResponse.redirect(new URL(url, request.url));
-  } else if (session && path === '/') {
-    const url = `/${grade}`;
-    return NextResponse.redirect(new URL(url, request.url));
+  if (!grade) {
+    // 로그인 아닐 때
+    if (path !== '/login') {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  } else {
+    // 로그인 일 때
+    if (
+      (path === '/login' || path === '/') &&
+      (grade === 'super' || grade === 'admin')
+    ) {
+      return NextResponse.redirect(new URL('/admin', request.url));
+    } else if ((path === '/login' || path === '/') && grade === 'agent') {
+      return NextResponse.redirect(new URL('/agent', request.url));
+    }
   }
 }
 
