@@ -19,11 +19,11 @@ const { Header, Content, Sider } = Layout;
 const MainLayout = ({
   children,
   themeMode,
-  grade,
+  role,
 }: {
   children: React.ReactNode;
   themeMode: any;
-  grade: string;
+  role: string;
 }) => {
   const pathname = usePathname();
   const { token } = theme.useToken();
@@ -38,7 +38,7 @@ const MainLayout = ({
           </Link>
           {/* <Image src="/next.svg" width={100} height={30} alt="test" /> */}
         </div>
-        <Navigation theme={themeMode} grade={grade} />
+        <Navigation theme={themeMode} role={role} />
       </Sider>
       {/* style={{ marginLeft: collapsed ? '8rem' : '20rem' }} */}
       <Layout className={clsx('container', themeMode)}>

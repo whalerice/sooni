@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { getCookie } from 'cookies-next';
 import { saveSessionCookie } from '@/lib/actions';
 import { cookies } from 'next/headers';
 
-const lang = 'ko-KR';
+// const lang = 'ko-KR';
 const instance = axios.create({
   // baseURL: process.env.url,
   baseURL: process.env.APIURL,
@@ -74,12 +73,4 @@ export const apis = {
     logout: (data: { user: { id: any } }) => request.post('/user/logout', data),
     sessionTouch: () => request.get('/user/session-touch'),
   },
-  // configuration: {
-  //   details: () => request.get('/configuration'),
-  //   languages: () => request.get('/configuration/languages'),
-  // },
-  // movie: {
-  //   popular: (params?: any) => request.get('/movie/popular', params),
-  //   airingToday: (params?: any) => request.get('/tv/airing_today', params),
-  // },
 };

@@ -1,5 +1,4 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { auth } from '@/auth';
 import { getAuth, getTheme } from '@/lib/actions';
 
 // This function can be marked `async` if using `await` inside
@@ -13,9 +12,9 @@ export async function middleware(request: NextRequest) {
   }
 
   const path = request.nextUrl.pathname;
-  const { grade } = await getAuth();
+  const { role } = await getAuth();
 
-  if (!grade) {
+  if (!role) {
     // 로그인 아닐 때
     if (path !== '/login') {
       return NextResponse.redirect(new URL('/login', request.url));
@@ -24,10 +23,10 @@ export async function middleware(request: NextRequest) {
     // 로그인 일 때
     if (
       (path === '/login' || path === '/') &&
-      (grade === 'super' || grade === 'admin')
+      (role === 'super' || role === 'admin')
     ) {
       return NextResponse.redirect(new URL('/admin', request.url));
-    } else if ((path === '/login' || path === '/') && grade === 'agent') {
+    } else if ((path === '/login' || path === '/') && role === 'agent') {
       return NextResponse.redirect(new URL('/agent', request.url));
     }
   }

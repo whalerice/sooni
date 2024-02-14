@@ -7,11 +7,11 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const mode = await getTheme();
-  const { grade } = await getAuth();
+  const { role } = await getAuth();
 
   return (
     <>
-      <MainLayout themeMode={mode} grade={grade!}>
+      <MainLayout themeMode={mode} role={role!}>
         {children}
       </MainLayout>
     </>

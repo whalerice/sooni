@@ -117,7 +117,7 @@ const gradeMenu: GradeType = {
   agent: agentItems,
 };
 
-const Navigation = ({ theme, grade }: { theme: MenuTheme; grade: string }) => {
+const Navigation = ({ theme, role }: { theme: MenuTheme; role: string }) => {
   const pathname = usePathname();
   let defaultSelectedKeys: string[] = [];
   let defaultOpenKeys: string[] = [];
@@ -141,7 +141,7 @@ const Navigation = ({ theme, grade }: { theme: MenuTheme; grade: string }) => {
   };
   // items
   useEffect(() => {
-    loop(gradeMenu[grade]);
+    loop(gradeMenu[role]);
   }, [pathname]);
   return (
     <Menu
@@ -149,7 +149,7 @@ const Navigation = ({ theme, grade }: { theme: MenuTheme; grade: string }) => {
       defaultOpenKeys={defaultOpenKeys}
       onOpenChange={onOpenChange}
       mode="inline"
-      items={gradeMenu[grade]}
+      items={gradeMenu[role]}
       theme={theme}
     />
   );

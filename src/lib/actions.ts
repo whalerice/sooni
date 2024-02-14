@@ -65,7 +65,7 @@ export async function authenticate(
 }
 
 // sign out
-export async function signOutAction() {
+export async function onSignOut() {
   const { user } = await getAuth();
 
   cookies()
@@ -77,7 +77,7 @@ export async function signOutAction() {
     });
 
   try {
-    await apis.user.logout({ user: { id: user?.id } });
+    // await apis.user.logout({ user: { id: user?.id } });
   } catch (error) {
     console.log('error', error);
   } finally {
@@ -87,12 +87,8 @@ export async function signOutAction() {
 
 export async function getAuth() {
   const session = await auth();
-  // console.log(session);
-
-  // console.log('getAuth', session);
-
-  const grade = session?.user.type.toLowerCase();
+  const role = session?.user.type.toLowerCase();
   const user = session?.user;
 
-  return { grade, user };
+  return { role, user };
 }
