@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { theme, Button, Layout, Space } from 'antd';
 import { menuInfo } from '@/lib/constants';
+import CounselorStatus from './counselor-status';
 
 const { Header, Content, Sider } = Layout;
 
@@ -20,10 +21,12 @@ const MainLayout = ({
   children,
   themeMode,
   role,
+  user,
 }: {
   children: React.ReactNode;
   themeMode: any;
   role: string;
+  user: any;
 }) => {
   const pathname = usePathname();
   const { token } = theme.useToken();
@@ -42,7 +45,7 @@ const MainLayout = ({
       </Sider>
       {/* style={{ marginLeft: collapsed ? '8rem' : '20rem' }} */}
       <Layout className={clsx('container', themeMode)}>
-        <Header className="header">
+        <Header>
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -50,7 +53,8 @@ const MainLayout = ({
             className="btn-collapse"
           />
           <Space align="center">
-            <UserInfo />
+            {user.type !== 'SUPER' && <CounselorStatus status={user.status} />}
+            <UserInfo user={user} />
             <ThemeSwitch theme={themeMode} />
             <SignOut />
           </Space>

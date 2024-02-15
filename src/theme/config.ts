@@ -17,7 +17,7 @@ const themeAntModes: ThemeAntModeType = {
 
 const themeConfig: ThemeConfig = {
   token: {
-    borderRadius: 2,
+    // borderRadius: 2,
     // colorBgLayout: '#fff',
     // colorBgContainer: '#f7f7f7',
     // colorTextBase: 'red',
