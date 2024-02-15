@@ -10,4 +10,12 @@ declare global {
   type ThemeStringModeType = {
     [key: string]: string;
   };
+
+  namespace NodeJS {
+    interface ProcessEnv {
+      APP_URL: string;
+      CHAT_URL: string;
+      WS_URL: string;
+    }
+  }
 }

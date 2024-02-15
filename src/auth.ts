@@ -22,10 +22,7 @@ export const authConfig = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const response = await apis.user.login({
-          loginId: credentials.loginId,
-          password: credentials.password,
-        });
+        const response = await apis.user.login(credentials);
 
         if (response) return response;
 

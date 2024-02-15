@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { saveSessionCookie } from '@/lib/actions';
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
 
 // const lang = 'ko-KR';
 const instance = axios.create({
-  // baseURL: process.env.url,
-  baseURL: process.env.APIURL,
+  baseURL: process.env.APP_URL,
 });
 
 type SendParams = {
@@ -18,7 +17,7 @@ type SendParams = {
 };
 // language: lang,
 const send = async (options: SendParams) => {
-  const sessionToken = cookies().get('x-qbot-session')?.value;
+  // const sessionToken = cookies().get('x-qbot-session')?.value;
 
   const { url, method, data, params, isForm } = options;
   try {
@@ -28,7 +27,7 @@ const send = async (options: SendParams) => {
       data,
       params: params,
       headers: {
-        ...(sessionToken ? { 'x-qbot-session': sessionToken } : {}),
+        // ...(sessionToken ? { 'x-qbot-session': sessionToken } : {}),
         // Authorization: `Bearer ${process.env.token}`,
         Accept: 'application/json',
         ...(isForm ? { 'Content-Type': 'multipart/form-data' } : {}),
@@ -46,9 +45,7 @@ const send = async (options: SendParams) => {
 
     return response.data;
   } catch (error: any) {
-    // console.log(error);
-
-    if (error.response.status === 422) {
+    if (error.response.data.message) {
       throw new Error(error.response.data.message);
     }
 
@@ -68,8 +65,7 @@ const request = {
 
 export const apis = {
   user: {
-    login: (data: { loginId: any; password: any }) =>
-      request.post('/user/login', data),
+    login: (data: any) => request.post('/user/login', data),
     logout: (data: { user: { id: any } }) => request.post('/user/logout', data),
     sessionTouch: () => request.get('/user/session-touch'),
   },
