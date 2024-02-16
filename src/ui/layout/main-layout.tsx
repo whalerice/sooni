@@ -13,7 +13,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { theme, Button, Layout, Space } from 'antd';
-import { menuInfo } from '@/lib/constants';
+// import { menuInfo } from '@/lib/constants';
 
 const { Header, Content, Sider } = Layout;
 
@@ -60,7 +60,8 @@ const MainLayout = ({
           </Space>
         </Header>
         <Content>
-          <div className="page-title">{menuInfo[pathname].pageTitle}</div>
+          <div className="page-title">{pathname}</div>
+          {/* <div className="page-title">{menuInfo[pathname].pageTitle}</div> */}
           {children}
         </Content>
       </Layout>

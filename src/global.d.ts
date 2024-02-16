@@ -19,6 +19,15 @@ declare global {
     [key: string]: string;
   };
 
+  type MenuListType = {
+    type?: string;
+    label?: string;
+    path?: string;
+    page?: string;
+    icon?: object;
+    children?: MenuListType[];
+  };
+
   type Avatar = {
     id?: number;
     url?: string;

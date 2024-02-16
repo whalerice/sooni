@@ -18,153 +18,7 @@ import {
   CommentOutlined,
 } from '@ant-design/icons';
 
-type MenuInfoType = {
-  [key: string]: {
-    pageTitle: string;
-    nav: string;
-    icon?: any;
-  };
-};
-
-// type GradeType = {
-//   [key: string]: string;
-// };
-
-// const grade: GradeType = {
-//   admin: 'admin',
-//   agent: 'agent',
-// };
-
-export const menuInfo: MenuInfoType = {
-  '/admin': {
-    pageTitle: '대시보드 - 실시간',
-    nav: '실시간',
-    icon: DashboardOutlined,
-  },
-  '/admin/monitor': {
-    pageTitle: '모니터링',
-    nav: '모니터링',
-    icon: FundViewOutlined,
-  },
-  '/admin/report': {
-    pageTitle: '리포트',
-    nav: '리포트',
-    icon: PieChartOutlined,
-  },
-  '/admin/ticket': {
-    pageTitle: '티켓 조회',
-    nav: '티켓 조회',
-    icon: SearchOutlined,
-  },
-  '/admin/ticket/setting': {
-    pageTitle: '티켓 설정',
-    nav: '티켓 설정',
-    icon: ProfileOutlined,
-  },
-  '/admin/team': { pageTitle: '팀', nav: '팀', icon: TeamOutlined },
-  '/admin/member': {
-    pageTitle: '팀원 관리',
-    nav: '팀원 관리',
-    icon: UserAddOutlined,
-  },
-  '/admin/manager': {
-    pageTitle: '관리자',
-    nav: '관리자',
-    icon: SolutionOutlined,
-  },
-  '/admin/counselor': {
-    pageTitle: '상담사',
-    nav: '상담사',
-    icon: UserOutlined,
-  },
-  '/admin/message': {
-    pageTitle: '챗봇 메세지',
-    nav: '챗봇 메세지',
-    icon: CommentOutlined,
-  },
-  '/admin/answer': {
-    pageTitle: '빠른답변',
-    nav: '빠른답변',
-    icon: ThunderboltOutlined,
-  },
-  '/admin/branch': {
-    pageTitle: '점포공감',
-    nav: '점포공감',
-    icon: ShopOutlined,
-  },
-  '/admin/roadshow': {
-    pageTitle: '로드쇼',
-    nav: '로드쇼',
-    icon: StarOutlined,
-  },
-  '/admin/general': {
-    pageTitle: '일반',
-    nav: '일반',
-  },
-  '/admin/general/auto': {
-    pageTitle: '자동화',
-    nav: '자동화',
-  },
-  '/admin/general/rank': {
-    pageTitle: '직급',
-    nav: '직급',
-  },
-  '/admin/general/abusive': {
-    pageTitle: '욕설필터',
-    nav: '욕설필터',
-  },
-  '/admin/operation': {
-    pageTitle: '운영 시간 설정',
-    nav: '운영 시간 설정',
-    icon: FieldTimeOutlined,
-  },
-  '/admin/chatbot': {
-    pageTitle: '챗봇 설정',
-    nav: '챗봇 설정',
-    icon: RobotOutlined,
-  },
-  '/admin/event/time': {
-    pageTitle: '타임 이벤트',
-    nav: '타임 이벤트',
-  },
-  '/admin/event/instantly': {
-    pageTitle: '즉시 이벤트',
-    nav: '즉시 이벤트',
-  },
-  dashboard: { pageTitle: '', nav: '대시보드' },
-  tickets: { pageTitle: '', nav: '티켓' },
-  management: { pageTitle: '', nav: '관리' },
-  setting: { pageTitle: '', nav: '설정' },
-  general: { pageTitle: '', nav: '일반설정', icon: SettingOutlined },
-  event: { pageTitle: '', nav: '이벤트 설정', icon: GiftOutlined },
-  '/agent': {
-    pageTitle: '대시보드',
-    nav: '대시보드',
-    icon: DashboardOutlined,
-  },
-  '/agent/ticket': {
-    pageTitle: '나의 티켓',
-    nav: '나의 티켓',
-    icon: ProfileOutlined,
-  },
-  '/agent/answer': {
-    pageTitle: '빠른답변',
-    nav: '빠른답변',
-    icon: ThunderboltOutlined,
-  },
-  '/agent/branch': {
-    pageTitle: '점포공감',
-    nav: '점포공감',
-    icon: ShopOutlined,
-  },
-  '/agent/roadshow': {
-    pageTitle: '로드쇼',
-    nav: '로드쇼',
-    icon: StarOutlined,
-  },
-};
-
-export const agentRouter = [
+export const agentRouter: MenuListType[] = [
   {
     type: 'group',
     label: '대시보드',
@@ -174,13 +28,6 @@ export const agentRouter = [
     label: '대시보드',
     page: '대시보드',
     icon: DashboardOutlined,
-    children: [
-      {
-        path: '/agent/dkdkdk',
-        label: 'ddddd',
-        page: 'dddd',
-      },
-    ],
   },
   {
     type: 'group',
@@ -216,34 +63,156 @@ export const agentRouter = [
   },
 ];
 
-export const router = [
+export const router: MenuListType[] = [
   {
     type: 'group',
+    label: '대시보드',
   },
-
   {
-    role: 'admin',
     path: '/admin',
-    title: '실시간',
+    label: '실시간',
     page: '대시보드 - 실시간',
     icon: DashboardOutlined,
-    children: [{ path: '/monitor' }],
   },
+  {
+    path: '/admin/monitor',
+    label: '모니터링',
+    page: '모니터링',
+    icon: FundViewOutlined,
+  },
+  {
+    path: '/admin/report',
+    label: '리포트',
+    page: '리포트',
+    icon: PieChartOutlined,
+  },
+  { type: 'divider' },
   {
     type: 'group',
+    label: '티켓',
   },
   {
-    type: 'sub',
-    path: '/agent',
-    title: '대시보드',
-    page: '대시보드',
-    icon: DashboardOutlined,
+    path: '/admin/ticket',
+    label: '티켓 조회',
+    page: '티켓 조회',
+    icon: SearchOutlined,
+  },
+  {
+    path: '/admin/ticket/setting',
+    label: '티켓 설정',
+    page: '티켓 설정',
+    icon: ProfileOutlined,
+  },
+  { type: 'divider' },
+  {
+    type: 'group',
+    label: '관리',
+  },
+  {
+    path: '/admin/team',
+    label: '팀',
+    page: '팀',
+    icon: TeamOutlined,
+  },
+  {
+    path: '/admin/member',
+    label: '팀원 관리',
+    page: '팀원 관리',
+    icon: UserAddOutlined,
+  },
+  {
+    path: '/admin/manager',
+    label: '관리자',
+    page: '관리자',
+    icon: SolutionOutlined,
+  },
+  {
+    path: '/admin/counselor',
+    label: '상담사',
+    page: '상담사',
+    icon: UserOutlined,
+  },
+  {
+    path: '/admin/message',
+    label: '챗봇 메세지',
+    page: '챗봇 메세지',
+    icon: CommentOutlined,
+  },
+  {
+    path: '/admin/answer',
+    label: '빠른답변',
+    page: '빠른답변',
+    icon: ThunderboltOutlined,
+  },
+  {
+    path: '/admin/branch',
+    label: '점포공감',
+    page: '점포공감',
+    icon: ShopOutlined,
+  },
+  {
+    path: '/admin/roadshow',
+    label: '로드쇼',
+    page: '로드쇼',
+    icon: StarOutlined,
+  },
+  { type: 'divider' },
+  {
+    type: 'group',
+    label: '설정',
+  },
+  {
+    label: '일반 설정',
+    icon: SettingOutlined,
     children: [
       {
-        path: '/ticket',
-        title: '나의 티켓',
-        page: '나의 티켓',
-        icon: ProfileOutlined,
+        path: '/admin/general',
+        label: '일반',
+        page: '일반',
+      },
+      {
+        path: '/admin/general/auto',
+        label: '자동화',
+        page: '자동화',
+      },
+      {
+        path: '/admin/general/rank',
+        label: '직급',
+        page: '직급',
+      },
+      {
+        path: '/admin/general/abusive',
+        label: '욕설필터',
+        page: '욕설필터',
+      },
+    ],
+  },
+  {
+    path: '/admin/operation',
+    label: '운영 시간 설정',
+    page: '운영 시간 설정',
+    icon: FieldTimeOutlined,
+  },
+  {
+    path: '/admin/chatbot',
+    label: '챗봇 설정',
+    page: '챗봇 설정',
+    icon: RobotOutlined,
+  },
+  {
+    label: '타임 이벤트',
+    page: '타임 이벤트',
+    icon: GiftOutlined,
+    children: [
+      {
+        path: '/admin/event/time',
+        label: '타임 이벤트',
+        page: '타임 이벤트',
+      },
+      {
+        path: '/admin/event/instantly',
+        label: '즉시 이벤트',
+        page: '즉시 이벤트',
       },
     ],
   },
