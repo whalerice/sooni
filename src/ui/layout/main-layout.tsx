@@ -4,6 +4,7 @@ import Navigation from '@/ui/layout/navigation';
 import ThemeSwitch from '@/ui/layout/theme-switch';
 import UserInfo from '@/ui/layout/user-info';
 import SignOut from '@/ui/layout/sign-out';
+import CounselorStatus from '@/ui/layout/counselor-status';
 
 // import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +14,6 @@ import { useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { theme, Button, Layout, Space } from 'antd';
 import { menuInfo } from '@/lib/constants';
-import CounselorStatus from './counselor-status';
 
 const { Header, Content, Sider } = Layout;
 

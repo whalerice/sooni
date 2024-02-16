@@ -163,3 +163,88 @@ export const menuInfo: MenuInfoType = {
     icon: StarOutlined,
   },
 };
+
+export const agentRouter = [
+  {
+    type: 'group',
+    label: '대시보드',
+  },
+  {
+    path: '/agent',
+    label: '대시보드',
+    page: '대시보드',
+    icon: DashboardOutlined,
+    children: [
+      {
+        path: '/agent/dkdkdk',
+        label: 'ddddd',
+        page: 'dddd',
+      },
+    ],
+  },
+  {
+    type: 'group',
+    label: '티켓',
+  },
+  {
+    path: '/agent/ticket',
+    label: '나의 티켓',
+    page: '나의 티켓',
+    icon: ProfileOutlined,
+  },
+  {
+    type: 'group',
+    label: '관리',
+  },
+  {
+    path: '/agent/answer',
+    label: '빠른답변',
+    page: '빠른답변',
+    icon: ThunderboltOutlined,
+  },
+  {
+    path: '/agent/branch',
+    label: '점포공감',
+    page: '점포공감',
+    icon: ShopOutlined,
+  },
+  {
+    path: '/agent/roadshow',
+    label: '로드쇼',
+    page: '로드쇼',
+    icon: StarOutlined,
+  },
+];
+
+export const router = [
+  {
+    type: 'group',
+  },
+
+  {
+    role: 'admin',
+    path: '/admin',
+    title: '실시간',
+    page: '대시보드 - 실시간',
+    icon: DashboardOutlined,
+    children: [{ path: '/monitor' }],
+  },
+  {
+    type: 'group',
+  },
+  {
+    type: 'sub',
+    path: '/agent',
+    title: '대시보드',
+    page: '대시보드',
+    icon: DashboardOutlined,
+    children: [
+      {
+        path: '/ticket',
+        title: '나의 티켓',
+        page: '나의 티켓',
+        icon: ProfileOutlined,
+      },
+    ],
+  },
+];

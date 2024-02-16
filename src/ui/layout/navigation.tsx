@@ -1,155 +1,78 @@
-import { useEffect } from 'react';
+import { Children, Component, useEffect } from 'react';
 import Link from 'next/link';
 
-import { Menu } from 'antd';
-import type { MenuProps, MenuTheme } from 'antd';
+import { GetProp, Menu, MenuProps, MenuTheme } from 'antd';
+import { DashboardOutlined } from '@ant-design/icons';
 import { usePathname } from 'next/navigation';
-import { menuInfo } from '@/lib/constants';
 
-type MenuItem = Required<MenuProps>['items'][number];
+import { agentRouter, menuInfo } from '@/lib/constants';
 
-function getItem(
-  key: React.Key,
-  children?: MenuItem[],
-  type?: 'group' | 'sub',
-): MenuItem {
-  let name = (key: any) => {
-    if (type) {
-      return menuInfo[key].nav;
-    }
-    return (
-      <Link href={key} scroll={false}>
-        {menuInfo[key].nav}
-      </Link>
-    );
-  };
+type MenuItem = GetProp<MenuProps, 'items'>[number];
 
-  let getIcon = (key: any) => {
-    const Icon = menuInfo[key].icon;
-    return menuInfo[key].icon ? <Icon /> : null;
-  };
-  const label = name(key);
-  const icon = getIcon(key);
-  return {
-    label,
-    key,
-    icon,
-    children,
-    type,
-  } as MenuItem;
-}
+// const items: MenuItem[] = [];
 
-const agentItems: MenuProps['items'] = [
-  getItem('dashboard', [getItem('/agent')], 'group'),
-  getItem('tickets', [getItem('/agent/ticket')], 'group'),
-  getItem(
-    'management',
-    [
-      getItem('/agent/answer'),
-      getItem('/agent/branch'),
-      getItem('/agent/roadshow'),
-    ],
-    'group',
-  ),
-];
+const title = (item: any) => {
+  if (item.path) {
+    return <Link href={item.path}>{item.label}</Link>;
+  }
 
-const items: MenuProps['items'] = [
-  getItem(
-    'dashboard',
-    [getItem('/admin'), getItem('/admin/monitor'), getItem('/admin/report')],
-    'group',
-  ),
-  { type: 'divider' },
-  getItem(
-    'tickets',
-    [getItem('/admin/ticket'), getItem('/admin/ticket/setting')],
-    'group',
-  ),
-  { type: 'divider' },
-  getItem(
-    'management',
-    [
-      getItem('/admin/team'),
-      getItem('/admin/member'),
-      getItem('/admin/manager'),
-      getItem('/admin/counselor'),
-      getItem('/admin/message'),
-      getItem('/admin/answer'),
-      getItem('/admin/branch'),
-      getItem('/admin/roadshow'),
-    ],
-    'group',
-  ),
-  { type: 'divider' },
-  getItem(
-    'setting',
-    [
-      getItem(
-        'general',
-        [
-          getItem('/admin/general'),
-          getItem('/admin/general/auto'),
-          getItem('/admin/general/rank'),
-          getItem('/admin/general/abusive'),
-        ],
-        'sub',
-      ),
-      getItem('/admin/operation'),
-      getItem('/admin/chatbot'),
-      getItem(
-        'event',
-        [getItem('/admin/event/time'), getItem('/admin/event/instantly')],
-        'sub',
-      ),
-    ],
-    'group',
-  ),
-  { type: 'divider' },
-];
-
-type GradeType = {
-  [key: string]: MenuProps['items'];
+  return item.label;
 };
 
-const gradeMenu: GradeType = {
-  super: items,
-  admin: items,
-  agent: agentItems,
+const icon = (item: any) => {
+  const Icon = item;
+  return !item ? null : <Icon />;
+};
+
+const child = (item: any) => {
+  return null;
+};
+
+const items: any[] = agentRouter.map((item) => ({
+  key: item.type ? null : item.path,
+  label: title(item),
+  icon: icon(item.icon),
+  type: item.type,
+  children: child(item.children),
+}));
+
+// const items: MenuItem[] = [
+//   { key: 'dashboard', type: 'group', label: '대시보드' },
+//   {
+//     label: 'ddd',
+//     key: '1',
+//     icon: <DashboardOutlined />,
+//     children: [
+//       { label: <Link href="/">ddd</Link>, key: '1-1' },
+//       { label: 'ccc', key: '1-2' },
+//     ],
+//   },
+
+//   {
+//     label: 'ddd',
+//     key: '2',
+//     icon: <DashboardOutlined />,
+//   },
+//   {
+//     label: 'ddd',
+//     key: '3',
+//     icon: <DashboardOutlined />,
+//   },
+//   { type: 'divider' },
+// ];
+
+const onClick: MenuProps['onClick'] = (e) => {
+  console.log('click ', e);
 };
 
 const Navigation = ({ theme, role }: { theme: MenuTheme; role: string }) => {
-  const pathname = usePathname();
-  let defaultSelectedKeys: string[] = [];
-  let defaultOpenKeys: string[] = [];
-
-  const loop = (item: any) => {
-    item.map((e: any) => {
-      if (e.key !== undefined) {
-        if (pathname === e.key) {
-          const parentName = e.key.split('/')[1];
-          defaultSelectedKeys.push(e.key);
-          defaultOpenKeys.push(parentName);
-        }
-      }
-
-      if (e.children) loop(e.children);
-    });
-  };
-
-  const onOpenChange = (openKeys: string[]) => {
-    defaultOpenKeys = [...defaultOpenKeys, ...openKeys];
-  };
-  // items
-  useEffect(() => {
-    loop(gradeMenu[role]);
-  }, [pathname]);
   return (
     <Menu
-      defaultSelectedKeys={defaultSelectedKeys}
-      defaultOpenKeys={defaultOpenKeys}
-      onOpenChange={onOpenChange}
+      defaultSelectedKeys={['1-1']}
+      defaultOpenKeys={['1']}
+      onClick={onClick}
       mode="inline"
-      items={gradeMenu[role]}
+      items={items}
       theme={theme}
     />
   );
