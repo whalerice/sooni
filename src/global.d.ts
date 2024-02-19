@@ -26,6 +26,7 @@ declare global {
     page?: string;
     icon?: object;
     children?: MenuListType[];
+    haveAuthority?: string[];
   };
 
   type Avatar = {

@@ -13,6 +13,7 @@ export async function middleware(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
   const { role } = await getAuth();
+  console.log('role', role);
 
   if (!role) {
     // 로그인 아닐 때
@@ -21,14 +22,17 @@ export async function middleware(request: NextRequest) {
     }
   } else {
     // 로그인 일 때
-    if (
-      (path === '/login' || path === '/') &&
-      (role === 'super' || role === 'admin')
-    ) {
-      return NextResponse.redirect(new URL('/admin', request.url));
-    } else if ((path === '/login' || path === '/') && role === 'agent') {
-      return NextResponse.redirect(new URL('/agent', request.url));
+    if (path === '/login' || path === '/') {
+      return NextResponse.redirect(new URL(`/${role}`, request.url));
     }
+    // if (
+    //   (path === '/login' || path === '/') &&
+    //   (role === 'super' || role === 'admin')
+    // ) {
+    //   return NextResponse.redirect(new URL('/admin', request.url));
+    // } else if ((path === '/login' || path === '/') && role === 'agent') {
+    //   return NextResponse.redirect(new URL('/agent', request.url));
+    // }
   }
 }
 
